@@ -1,0 +1,56 @@
+### obtener todos los tipos de combustibles
+GET http://localhost:8002/api/fuelTypes
+Content-Type: application/json
+
+### Obtener un tipo de combustible
+GET http://localhost:8002/api/fuelTypes/3
+Content-Type: application/json
+
+### Registrar un tipo de combustible
+POST http://localhost:8002/api/fuelTypes
+Content-Type: application/json
+
+{
+    "fuelType": "Diesel",
+    "createdBy": "admin",
+    "createdDate": "2024-08-13T12:00:00",
+    "modifiedBy": "admin",
+    "modifiedDate": "2024-08-13T12:00:00",
+    "isDeleted": false,
+    "deletedBy": null,
+    "deletedDate": null,
+    "ipAddress": "192.168.1.1",
+    "action": "CREATE",
+    "previousValue": null,
+    "currentValue": "Male",
+    "recordVersion": "v1.0",
+    "operationType": "INSERT",
+    "role": "admin"
+}
+
+### Actualizar un tipo de combustible
+PUT http://localhost:8002/api/fuelTypes/2
+Content-Type: application/json
+
+{
+    "id": 2,
+    "fuelType": "Gasolina",
+    "createdBy": "admin",
+    "createdDate": "2024-08-13T12:00:00",
+    "modifiedBy": "admin",
+    "modifiedDate": "2024-08-13T12:00:00",
+    "isDeleted": false,
+    "deletedBy": null,
+    "deletedDate": null,
+    "ipAddress": "192.168.1.1",
+    "action": "CREATE",
+    "previousValue": null,
+    "currentValue": "Male",
+    "recordVersion": "v1.0",
+    "operationType": "INSERT",
+    "role": "admin"
+}
+
+### Eliminar un tipo de combustible
+DELETE http://localhost:8002/api/fuelTypes/2
+Content-Type: application/json
