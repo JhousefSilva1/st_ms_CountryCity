@@ -1,7 +1,7 @@
 package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Services;
 
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Repository.StCountryRepository;
-import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StCountry;
+import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StCountryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -13,20 +13,20 @@ public class StCountryService {
     @Autowired
     private StCountryRepository stCountryRepository;
 
-    public List<StCountry> getAllCountries() {
+    public List<StCountryEntity> getAllCountries() {
         return stCountryRepository.findAll();
     }
 
-    public Optional<StCountry> getCountryById(int id) {
+    public Optional<StCountryEntity> getCountryById(int id) {
         return stCountryRepository.findById(id);
     }
 
-    public StCountry createCountry(StCountry country) {
+    public StCountryEntity createCountry(StCountryEntity country) {
         return stCountryRepository.save(country);
     }
 
-    public StCountry updateCountry(int id, StCountry countryDetails) {
-        StCountry country = stCountryRepository.findById(id).orElseThrow(() -> new RuntimeException("Country not found"));
+    public StCountryEntity updateCountry(int id, StCountryEntity countryDetails) {
+        StCountryEntity country = stCountryRepository.findById(id).orElseThrow(() -> new RuntimeException("Country not found"));
         country.setCountryName(countryDetails.getCountryName());
         // Update other fields as needed
         return stCountryRepository.save(country);

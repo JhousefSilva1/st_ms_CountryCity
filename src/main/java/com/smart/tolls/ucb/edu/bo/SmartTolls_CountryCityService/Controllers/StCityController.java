@@ -1,7 +1,7 @@
 package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Controllers;
 
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Services.StCityService;
-import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StCity;
+import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StCityEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,24 +16,24 @@ public class StCityController {
     private StCityService stCityService;
 
     @GetMapping
-    public List<StCity> getAllCities() {
+    public List<StCityEntity> getAllCities() {
         return stCityService.getAllCities();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StCity> getCityById(@PathVariable int id) {
+    public ResponseEntity<StCityEntity> getCityById(@PathVariable int id) {
         return stCityService.getCityById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public StCity createCity(@RequestBody StCity city) {
+    public StCityEntity createCity(@RequestBody StCityEntity city) {
         return stCityService.createCity(city);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StCity> updateCity(@PathVariable int id, @RequestBody StCity cityDetails) {
+    public ResponseEntity<StCityEntity> updateCity(@PathVariable int id, @RequestBody StCityEntity cityDetails) {
         return ResponseEntity.ok(stCityService.updateCity(id, cityDetails));
     }
 

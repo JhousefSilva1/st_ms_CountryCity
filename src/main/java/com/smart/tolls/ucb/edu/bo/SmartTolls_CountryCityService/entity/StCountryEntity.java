@@ -3,7 +3,6 @@ package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 import java.sql.Timestamp;
 
 @Entity
@@ -12,19 +11,16 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "st_city")
-public class StCity {
+@Table(name = "st_country")
+public class StCountryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "st_city_id")
+    @Column(name = "st_country_id")
     private int id;
 
-    @Column(name = "st_city_city", nullable = false, length = 100)
-    private String city;
-
-    @Column(name = "st_country_st_country_id", nullable = false)
-    private int countryId;
+    @Column(name = "st_country_country_name", nullable = false, length = 100)
+    private String countryName;
 
     @Column(name = "CreatedBy", length = 100)
     private String createdBy;

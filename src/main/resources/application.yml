@@ -24,15 +24,18 @@ spring:
       import-check:
         enabled: false
 
-
-
   profiles:
     active: dev
   logging:
-     level:
+    level:
       org.springframework: DEBUG
       org.springframework.security: DEBUG
 
+  devtools:
+    restart:
+      enabled: true  # Habilita el reinicio automático
+    livereload:
+      enabled: true  # Habilita LiveReload para refrescar el navegador automáticamente
 
 server:
   port: 8002

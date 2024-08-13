@@ -1,0 +1,58 @@
+### obtner todos los paises
+GET http://localhost:8002/api/countries
+Content-Type: application/json
+
+<> 2024-08-13T171400.200.json
+### Obtner un país (cambiar numero despues del /
+GET http://localhost:8002/api/countries/3
+Content-Type: application/json
+
+<> 2024-08-13T171400.200.json
+
+### Registrar un pais
+POST http://localhost:8002/api/countries
+Content-Type: application/json
+
+{
+  "countryName": "Bolivia",
+  "createdBy": "admin",
+  "createdDate": "2024-08-13T12:34:56.789Z",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-13T12:34:56.789Z",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "create",
+  "previousValue": null,
+  "currentValue": "Bolivia",
+  "recordVersion": "1.0",
+  "operationType": "Insert",
+  "role": "Admin"
+}
+
+### actualizar un pais (cambiar numeración)
+PUT http://localhost:8002/api/countries/3
+Content-Type: application/json
+
+{
+  "countryName": "Bolivia",
+  "createdBy": "test",
+  "createdDate": "2024-08-13T12:34:56.789Z",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-13T12:34:56.789Z",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "create",
+  "previousValue": null,
+  "currentValue": "Bolivia",
+  "recordVersion": "1.0",
+  "operationType": "Insert",
+  "role": "Admin"
+}
+### actualizar un pais (cambiar numeración)
+DELETE http://localhost:8002/api/countries/4
+Content-Type: application/json
+
