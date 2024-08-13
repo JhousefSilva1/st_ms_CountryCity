@@ -1,0 +1,21 @@
+POST http://localhost:8002/api/cities
+Content-Type: application/json
+
+{
+  "stCityCity": "Buenos Aires",
+  "stCountryStCountryId": 1,
+  "createdBy": "admin",
+  "createdDate": "2024-08-13T10:00:00",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-13T10:00:00",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "CREATE",
+  "previousValue": null,
+  "currentValue": "{\"stCityCity\":\"Springfield\",\"stCountryStCountryId\":101}",
+  "recordVersion": "v1",
+  "operationType": "INSERT",
+  "role": "admin"
+}

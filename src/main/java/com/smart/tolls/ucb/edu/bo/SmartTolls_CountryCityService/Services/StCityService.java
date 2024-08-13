@@ -27,8 +27,8 @@ public class StCityService {
 
     public StCityEntity updateCity(int id, StCityEntity cityDetails) {
         StCityEntity city = stCityRepository.findById(id).orElseThrow(() -> new RuntimeException("City not found"));
-        city.setCity(cityDetails.getCity());
-        city.setCountryId(cityDetails.getCountryId());
+        city.setStCityId(cityDetails.getStCityId());
+        city.setStCountryStCountryId(cityDetails.getStCountryStCountryId());
         // Update other fields as needed
         return stCityRepository.save(city);
     }

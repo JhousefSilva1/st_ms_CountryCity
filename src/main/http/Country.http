@@ -14,21 +14,21 @@ POST http://localhost:8002/api/countries
 Content-Type: application/json
 
 {
-  "countryName": "Bolivia",
+  "countryName": "Argentina",
   "createdBy": "admin",
-  "createdDate": "2024-08-13T12:34:56.789Z",
+  "createdDate": "2024-08-13T10:00:00",
   "modifiedBy": "admin",
-  "modifiedDate": "2024-08-13T12:34:56.789Z",
+  "modifiedDate": "2024-08-13T10:00:00",
   "isDeleted": false,
   "deletedBy": null,
   "deletedDate": null,
   "ipAddress": "192.168.1.1",
-  "action": "create",
+  "action": "CREATE",
   "previousValue": null,
-  "currentValue": "Bolivia",
-  "recordVersion": "1.0",
-  "operationType": "Insert",
-  "role": "Admin"
+  "currentValue": "Argentina",
+  "recordVersion": "v1",
+  "operationType": "INSERT",
+  "role": "admin"
 }
 
 ### actualizar un pais (cambiar numeración)

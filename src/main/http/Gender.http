@@ -1,0 +1,21 @@
+POST http://localhost:8002/api/gender
+Content-Type: application/json
+
+{
+    "gender": "Male",
+    "description": "Male gender",
+    "createdBy": "admin",
+    "createdDate": "2024-08-13T12:00:00",
+    "modifiedBy": "admin",
+    "modifiedDate": "2024-08-13T12:00:00",
+    "isDeleted": false,
+    "deletedBy": null,
+    "deletedDate": null,
+    "ipAddress": "192.168.1.1",
+    "action": "CREATE",
+    "previousValue": null,
+    "currentValue": "Male",
+    "recordVersion": "v1.0",
+    "operationType": "INSERT",
+    "role": "admin"
+}
