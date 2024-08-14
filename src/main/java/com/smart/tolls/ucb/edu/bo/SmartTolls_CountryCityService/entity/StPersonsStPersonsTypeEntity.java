@@ -1,5 +1,7 @@
 package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity;
+
 import jakarta.persistence.*;
+import jakarta.ws.rs.GET;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -10,15 +12,19 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "st_person_type")
-public class StPersonTypeEntity {
+@Table(name = "st_persons_st_persons_type")
+public class StPersonsStPersonsTypeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "st_person_type_id")
-    private Long stPersonTypeId;
+    @Column(name = "st_persons_st_persons_type")
+    private Long stPersonsStPersonsTypeId;
 
-    @Column(name = "st_person_type", length = 100)
-    private String stPersonType;
+    @Column(name = "st_person_type_st_person_type_id")
+    private Integer stPersonTypeId;
+
+    @Column(name = "st_persons_st_person_id")
+    private Integer stPersonId;
 
     @Column(name = "CreatedBy", length = 100)
     private String createdBy;
@@ -62,5 +68,4 @@ public class StPersonTypeEntity {
     @Column(name = "Role", length = 100)
     private String role;
 
-    // Getters y Setters serán generados por Lombok
 }

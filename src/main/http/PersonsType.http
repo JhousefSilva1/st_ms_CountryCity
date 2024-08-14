@@ -1,0 +1,20 @@
+POST http://localhost:8002/api/personTypes
+Content-Type: application/json
+
+{
+  "stPersonType": "Operador",
+  "createdBy": "usuario1",
+  "createdDate": "2024-08-13T10:30:00",
+  "modifiedBy": "usuario2",
+  "modifiedDate": "2024-08-13T11:00:00",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "UPDATE",
+  "previousValue": "Prospecto",
+  "currentValue": "Cliente",
+  "recordVersion": "1.1",
+  "operationType": "MODIFY",
+  "role": "USER"
+}
