@@ -31,17 +31,17 @@ public class StPersonEntity {
     @Column(name = "st_person_dni", nullable = false, length = 20, unique = true)
     private String dni;
 
-    @ManyToOne
-    @JoinColumn(name = "st_gender_st_gender_id", nullable = false)
-    private StGenderEntity gender;
 
-    @ManyToOne
-    @JoinColumn(name = "st_country_st_country_id", nullable = false)
-    private StCountryEntity country;
+    @Column(name = "st_gender_st_gender_id", nullable = false)
+    private Integer genderId;
 
-    @ManyToOne
-    @JoinColumn(name = "st_city_st_city_id", nullable = false)
-    private StCityEntity city;
+
+    @Column(name = "st_country_st_country_id", nullable = false)
+    private Integer countryId;
+
+
+    @Column(name = "st_city_st_city_id", nullable = false)
+    private Integer cityId;
 
     @Column(name = "st_person_address", length = 200)
     private String address;

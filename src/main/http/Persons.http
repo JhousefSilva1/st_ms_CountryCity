@@ -1,0 +1,28 @@
+POST http://localhost:8002/api/persons
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "dni": "12345678",
+  "genderId": 1,
+  "countryId": 1,
+  "cityId": 1,
+  "address": "123 Main St",
+  "phoneNumber": "+59112345678",
+  "createdBy": "admin",
+  "createdDate": "2024-08-13T10:00:00",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-13T12:00:00",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "CREATE",
+  "previousValue": null,
+  "currentValue": "{\"firstName\":\"John\",\"lastName\":\"Doe\"}",
+  "recordVersion": "v1",
+  "operationType": "INSERT",
+  "role": "admin"
+}
