@@ -1,0 +1,22 @@
+### Ppost PersonType
+POST http://localhost:8002/api/personTypes
+Content-Type: application/json
+
+{
+  "stPersonTypeId": 1,
+  "stPersonType": "Empleado",
+  "createdBy": "admin",
+  "createdDate": "2024-08-13T12:34:56",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-13T13:34:56",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.0.1",
+  "action": "INSERT",
+  "previousValue": null,
+  "currentValue": "Empleado",
+  "recordVersion": "1.0",
+  "operationType": "CREATE",
+  "role": "ADMIN"
+}
