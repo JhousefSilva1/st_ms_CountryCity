@@ -1,0 +1,56 @@
+### obtener todos las marca de vehiculos
+GET http://localhost:8002/api/vehicleBrands
+Content-Type: application/json
+
+### Obtener una marca de vehiculo
+GET http://localhost:8002/api/vehicleBrands/1
+Content-Type: application/json
+
+### Registrar una marca de vehiculos
+POST http://localhost:8002/api/vehicleBrands
+Content-Type: application/json
+
+{
+  "vehicleBrand": "Suzuki",
+  "createdBy": "admin",
+  "createdDate": "2024-08-13T12:00:00",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-13T12:00:00",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "CREATE",
+  "previousValue": null,
+  "currentValue": "Male",
+  "recordVersion": "v1.0",
+  "operationType": "INSERT",
+  "role": "admin"
+}
+
+### Actualizar un tipo de combustible
+PUT http://localhost:8002/api/vehicleBrands/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "vehicleBrand": "Mazda",
+  "createdBy": "admin",
+  "createdDate": "2024-08-13T12:00:00",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-13T12:00:00",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "CREATE",
+  "previousValue": null,
+  "currentValue": "Male",
+  "recordVersion": "v1.0",
+  "operationType": "INSERT",
+  "role": "admin"
+}
+
+### Eliminar un tipo de combustible
+DELETE http://localhost:8002/api/vehicleBrands/1
+Content-Type: application/json
