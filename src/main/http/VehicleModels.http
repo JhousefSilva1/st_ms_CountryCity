@@ -1,0 +1,21 @@
+POST http://localhost:8002/api/vehicles/models
+Content-Type: application/json
+
+{
+  "vehicleModel": "Jimny",
+  "stVehicleBrandStVehicleBrandId": 1,
+  "createdBy": "usuario1",
+  "createdDate": "2024-08-13T10:30:00",
+  "modifiedBy": "usuario2",
+  "modifiedDate": "2024-08-13T11:00:00",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "INSERT",
+  "previousValue": "Model S",
+  "currentValue": "Model X",
+  "recordVersion": "1.0",
+  "operationType": "UPDATE",
+  "role": "ADMIN"
+}
