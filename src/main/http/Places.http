@@ -1,0 +1,22 @@
+POST http://localhost:8002/api/places
+Content-Type: application/json
+
+{
+  "stPlacesPlaces": "Casa Rosada",
+  "stPlacesDescription": "Casa Rosada - Buenos Aires",
+  "stCityStCityId": 1222223,
+  "createdBy": "Usuario Creador",
+  "createdDate": "2024-08-21T10:15:30",
+  "modifiedBy": "Usuario Modificador",
+  "modifiedDate": "2024-08-21T12:00:00",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.0.1",
+  "action": "CREATE",
+  "previousValue": null,
+  "currentValue": "Nuevo valor",
+  "recordVersion": 1,
+  "operationType": "INSERT",
+  "role": "ADMIN"
+}

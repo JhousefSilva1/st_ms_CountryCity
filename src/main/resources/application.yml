@@ -37,6 +37,7 @@ spring:
     livereload:
       enabled: true  # Habilita LiveReload para refrescar el navegador automáticamente
 
+
 server:
   port: 8002
 
