@@ -1,0 +1,22 @@
+POST http://localhost:8002/api/road-types
+Content-Type: application/json
+
+{
+
+  "stRoadTypeType": "Autopista",
+  "stRoadTypeDescription": "Main route connecting major cities",
+  "createdBy": "admin",
+  "createdDate": "2024-08-21T14:30:00",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-21T16:45:00",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.0.1",
+  "action": "CREATE",
+  "previousValue": null,
+  "currentValue": "{\"stRoadTypeType\":\"Highway\", \"stRoadTypeDescription\":\"Main route connecting major cities\"}",
+  "recordVersion": 1,
+  "operationType": "INSERT",
+  "role": "ADMIN"
+}

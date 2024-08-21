@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "stCityCity": "Jujuy",
-  "stCountryStCountryId": 1,
+  "stCountryStCountryId": 189,
   "createdBy": "admin",
   "createdDate": "2024-08-13T10:00:00",
   "modifiedBy": "admin",
