@@ -1,5 +1,28 @@
-### GET request to example server
-GET https://examples.http-client.intellij.net/get$END$
-    ?generated-in=IntelliJ IDEA
+POST http://localhost:8002/api/vehicles
+Content-Type: application/json
 
-###
+{
+  "stVehiclesModelsStVehicleModelId": 1,
+  "stPersonsStPersonId": 1,
+  "stFuelTypesStFuelTypeId": 1,
+  "stVehicleTypeStVehicleTypeId": 1,
+  "stVehiclesColor": "Black",
+  "stVehiclesPlate": "ABC-123",
+  "stVehiclesChasisNumbe": "1HGCM82633A123456",
+  "stVehicleWeight": "1500kg",
+  "stVehicleManufactureYear": "2020",
+  "createdBy": "admin",
+  "createdDate": "2024-08-19T14:30:00",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-19T16:00:00",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "CREATE",
+  "previousValue": null,
+  "currentValue": "stVehiclesPlate: ABC-123, stVehiclesColor: Black",
+  "recordVersion": "1.0",
+  "operationType": "INSERT",
+  "role": "ADMIN"
+}

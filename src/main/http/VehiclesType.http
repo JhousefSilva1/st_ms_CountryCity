@@ -1,5 +1,21 @@
-### GET request to example server
-GET https://examples.http-client.intellij.net/get$END$
-    ?generated-in=IntelliJ IDEA
+POST http://localhost:8002/api/vehicles/type
+Content-Type: application/json
 
-###
+{
+  "vehicleType": "Sedan",
+  "vehicleDoors": "5",
+  "vehicleSeats": "5",
+  "createdBy": "admin",
+  "createdDate": "2024-08-19T14:30:00",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-19T16:00:00",
+  "isDeleted": "false",
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "CREATE",
+  "previousValue": null,
+  "currentValue": "",
+  "recordVersion": "1.0",
+  "operationType": "INSERT"
+}
