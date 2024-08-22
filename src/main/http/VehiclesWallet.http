@@ -1,0 +1,23 @@
+###
+POST http://localhost:8002/api/vehicles/wallet
+Content-Type: application/json
+
+{
+  "stVehiclesCode": "VH-2023-001",
+  "stVehicleAmount": "500.00",
+  "stVehiclesStVehiclesId": 6,
+  "createdBy": "admin",
+  "createdDate": "2024-08-22T12:00:00",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-22T13:00:00",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "INSERT",
+  "previousValue": null,
+  "currentValue": "Actualización de monto",
+  "recordVersion": "1",
+  "operationType": "UPDATE",
+  "role": "ADMIN"
+}

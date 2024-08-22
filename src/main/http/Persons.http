@@ -6,6 +6,8 @@ Content-Type: application/json
   "lastName": "Doe",
   "email": "john.doe@example.com",
   "dni": "12345678",
+  "birthdate": "2024-08-13T00:00:00",
+  "passwords": "12345678",
   "genderId": 1,
   "countryId": 1,
   "cityId": 1,

@@ -4,7 +4,7 @@ Content-Type: application/json
 {
   "stPlacesPlaces": "Autopista",
   "stPlacesDescription": "Casa Rosada - Buenos Aires",
-  "stCityStCityId": 2,
+  "stCityStCityId": 1,
   "createdBy": "Usuario Creador",
   "createdDate": "2024-08-21T10:15:30",
   "modifiedBy": "Usuario Modificador",

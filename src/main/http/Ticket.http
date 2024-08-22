@@ -1,0 +1,24 @@
+###
+POST http://localhost:8002/api/tickets
+Content-Type: application/json
+
+{
+  "description": "Pago de peaje en línea X",
+  "vehicleId": 6,
+  "lineId": 1,
+  "dateHour": "2024-08-22T14:30:00",
+  "createdBy": "admin",
+  "createdDate": "2024-08-22T12:00:00",
+  "modifiedBy": "admin",
+  "modifiedDate": "2024-08-22T13:00:00",
+  "isDeleted": false,
+  "deletedBy": null,
+  "deletedDate": null,
+  "ipAddress": "192.168.1.1",
+  "action": "INSERT",
+  "previousValue": null,
+  "currentValue": "Actualización de descripción",
+  "recordVersion": "1",
+  "operationType": "CREATION",
+  "role": "ADMIN"
+}

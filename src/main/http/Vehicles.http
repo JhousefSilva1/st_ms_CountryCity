@@ -2,8 +2,8 @@ POST http://localhost:8002/api/vehicles
 Content-Type: application/json
 
 {
-  "stVehiclesModelsStVehicleModelId": 1,
-  "stPersonsStPersonId": 1,
+  "stVehiclesModelsStVehicleModelId": 3,
+  "stPersonsStPersonId": 8,
   "stFuelTypesStFuelTypeId": 1,
   "stVehicleTypeStVehicleTypeId": 1,
   "stVehiclesColor": "Black",
