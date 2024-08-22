@@ -11,28 +11,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "st_tolls")
-public class StTollsEntity {
-
+@Table(name = "st_lines")
+public class StLinesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "st_tolls_id")
-    private Long stTollsId;
+    @Column(name = "st_line_id")
+    private int lineId;
 
-    @Column(name = "st_tolls_tolls", nullable = false)
-    private String stTollsTolls;
+    @Column(name = "st_line_line")
+    private String line;
 
-    @Column(name = "st_origin_places_st_places_id", nullable = false)
-    private Long stOriginPlacesStPlacesId;
-
-    @Column(name = "st_destination_places_st_places_id", nullable = false)
-    private Long stDestinationPlacesStPlacesId;
-
-    @Column(name = "st_tolls_cost", nullable = false)
-    private Double stTollsCost;
-
-    @Column(name = "st_road_type_st_road_type_id", nullable = false)
-    private Long stRoadTypeStRoadTypeId;
+    @Column(name = "st_tolls_st_tolls_id")
+    private Integer tollsId;
 
     @Column(name = "createdby",nullable = false)
     private String createdBy;
@@ -69,13 +59,14 @@ public class StTollsEntity {
     private String currentValue;
 
     @Column(name = "recordversion",nullable = false)
-    private String  recordVersion;
+    private String recordVersion;
 
     @Column(name = "operationtype",nullable = false)
     private String operationType;
 
     @Column(name = "role",nullable = false)
     private String role;
+
 
 
 }
