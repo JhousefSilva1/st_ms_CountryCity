@@ -2,9 +2,9 @@ POST http://localhost:8002/api/places
 Content-Type: application/json
 
 {
-  "stPlacesPlaces": "Casa Rosada",
+  "stPlacesPlaces": "Autopista",
   "stPlacesDescription": "Casa Rosada - Buenos Aires",
-  "stCityStCityId": 1222223,
+  "stCityStCityId": 2,
   "createdBy": "Usuario Creador",
   "createdDate": "2024-08-21T10:15:30",
   "modifiedBy": "Usuario Modificador",

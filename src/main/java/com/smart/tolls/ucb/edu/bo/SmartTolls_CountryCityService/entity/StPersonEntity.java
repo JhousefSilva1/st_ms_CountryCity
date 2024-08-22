@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,18 +20,20 @@ public class StPersonEntity {
     @Column(name = "st_person_id")
     private Long id;
 
-    @Column(name = "st_person_first_name", nullable = false, length = 100)
+    @Column(name = "st_person_name", nullable = false, length = 100)
     private String firstName;
 
-    @Column(name = "st_person_last_name", nullable = false, length = 100)
+    @Column(name = "st_person_surname", nullable = false, length = 100)
     private String lastName;
-
-    @Column(name = "st_person_email", nullable = false, length = 150, unique = true)
-    private String email;
 
     @Column(name = "st_person_dni", nullable = false, length = 20, unique = true)
     private String dni;
 
+    @Column(name = "st_person_birthdate", nullable = false)
+    private Timestamp birthdate;
+
+    @Column(name = "st_person_cellphone_number", length = 20)
+    private String phoneNumber;
 
     @Column(name = "st_gender_st_gender_id", nullable = false)
     private Integer genderId;
@@ -39,58 +42,52 @@ public class StPersonEntity {
     @Column(name = "st_country_st_country_id", nullable = false)
     private Integer countryId;
 
+    @Column(name = "st_person_email", nullable = false, length = 150, unique = true)
+    private String email;
 
-    @Column(name = "st_city_st_city_id", nullable = false)
-    private Integer cityId;
+    @Column(name = "st_person_password", nullable = false, length = 100)
+    private String passwords;
 
-    @Column(name = "st_person_address", length = 200)
-    private String address;
-
-    @Column(name = "st_person_phone_number", length = 20)
-    private String phoneNumber;
-
-    // Auditoría
-    @Column(name = "CreatedBy", length = 100)
+    @Column(name = "created_by")
     private String createdBy;
 
-    @Column(name = "CreatedDate")
-    private Timestamp createdDate;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
-    @Column(name = "ModifiedBy", length = 100)
+    @Column(name = "modified_by")
     private String modifiedBy;
 
-    @Column(name = "ModifiedDate")
-    private Timestamp modifiedDate;
+    @Column(name = "modified_date")
+    private LocalDateTime modifiedDate;
 
-    @Column(name = "IsDeleted")
+    @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @Column(name = "DeletedBy", length = 100)
+    @Column(name = "deleted_by")
     private String deletedBy;
 
-    @Column(name = "DeletedDate")
-    private Timestamp deletedDate;
+    @Column(name = "deleted_date")
+    private LocalDateTime deletedDate;
 
-    @Column(name = "IPAddress", length = 100)
+    @Column(name = "ip_address")
     private String ipAddress;
 
-    @Column(name = "Action", length = 50)
+    @Column(name = "action")
     private String action;
 
-    @Column(name = "PreviousValue", length = 100)
+    @Column(name = "previous_value")
     private String previousValue;
 
-    @Column(name = "CurrentValue", length = 100)
+    @Column(name = "current_value")
     private String currentValue;
 
-    @Column(name = "RecordVersion", length = 10)
+    @Column(name = "record_version")
     private String recordVersion;
 
-    @Column(name = "OperationType", length = 100)
+    @Column(name = "operation_type")
     private String operationType;
 
-    @Column(name = "Role", length = 100)
+    @Column(name = "role")
     private String role;
-
     // Getters y Setters
 }

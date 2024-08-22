@@ -5,6 +5,7 @@ import jakarta.ws.rs.GET;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -26,46 +27,46 @@ public class StPersonsStPersonsTypeEntity {
     @Column(name = "st_persons_st_person_id")
     private Integer stPersonId;
 
-    @Column(name = "CreatedBy", length = 100)
+    @Column(name = "created_by")
     private String createdBy;
 
-    @Column(name = "CreatedDate")
-    private Timestamp createdDate;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
-    @Column(name = "ModifiedBy", length = 100)
+    @Column(name = "modified_by")
     private String modifiedBy;
 
-    @Column(name = "ModifiedDate")
-    private Timestamp modifiedDate;
+    @Column(name = "modified_date")
+    private LocalDateTime modifiedDate;
 
-    @Column(name = "IsDeleted")
+    @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @Column(name = "DeletedBy", length = 100)
+    @Column(name = "deleted_by")
     private String deletedBy;
 
-    @Column(name = "DeletedDate")
-    private Timestamp deletedDate;
+    @Column(name = "deleted_date")
+    private LocalDateTime deletedDate;
 
-    @Column(name = "IPAddress", length = 100)
+    @Column(name = "ip_address")
     private String ipAddress;
 
-    @Column(name = "Action", length = 50)
+    @Column(name = "action")
     private String action;
 
-    @Column(name = "PreviousValue", length = 100)
+    @Column(name = "previous_value")
     private String previousValue;
 
-    @Column(name = "CurrentValue", length = 100)
+    @Column(name = "current_value")
     private String currentValue;
 
-    @Column(name = "RecordVersion", length = 10)
+    @Column(name = "record_version")
     private String recordVersion;
 
-    @Column(name = "OperationType", length = 100)
+    @Column(name = "operation_type")
     private String operationType;
 
-    @Column(name = "Role", length = 100)
+    @Column(name = "role")
     private String role;
 
 }

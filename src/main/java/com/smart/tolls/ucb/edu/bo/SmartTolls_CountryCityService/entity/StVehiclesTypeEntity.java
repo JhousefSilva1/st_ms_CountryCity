@@ -3,6 +3,8 @@ package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -26,45 +28,47 @@ public class StVehiclesTypeEntity {
     @Column(name = "st_vehicles_passengers", nullable = false)
     private String vehicleSeats;
 
-    @Column(name =  "CreatedBy")
+    @Column(name = "created_by")
     private String createdBy;
 
-    @Column(name = "CreatedDate")
-    private String createdDate;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
-    @Column(name = "ModifiedBy")
+    @Column(name = "modified_by")
     private String modifiedBy;
 
-    @Column(name = "ModifiedDate")
-    private String modifiedDate;
+    @Column(name = "modified_date")
+    private LocalDateTime modifiedDate;
 
-    @Column(name = "IsDeleted")
-    private String isDeleted;
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 
-    @Column(name = "DeletedBy")
+    @Column(name = "deleted_by")
     private String deletedBy;
 
-    @Column(name = "DeletedDate")
-    private String deletedDate;
+    @Column(name = "deleted_date")
+    private LocalDateTime deletedDate;
 
-    @Column(name = "IPAddress")
+    @Column(name = "ip_address")
     private String ipAddress;
 
-    @Column(name = "Action")
+    @Column(name = "action")
     private String action;
 
-    @Column(name = "PreviousValue")
+    @Column(name = "previous_value")
     private String previousValue;
 
-    @Column(name = "CurrentValue")
+    @Column(name = "current_value")
     private String currentValue;
 
-    @Column(name = "RecordVersion")
+    @Column(name = "record_version")
     private String recordVersion;
 
-    @Column(name = "OperationType")
+    @Column(name = "operation_type")
     private String operationType;
 
+    @Column(name = "role")
+    private String role;
 
 
 

@@ -11,56 +11,56 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "st_vehilces_brands")
+@Table(name = "st_vehicles_brands")
 public class StVehicleBrandsEntity {
 
-            @Id
-            @GeneratedValue(strategy = GenerationType.IDENTITY)
-            @Column(name = "st_vehicle_brand_id")
-            private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "st_vehicle_brand_id")
+    private Long id;
 
-            @Column(name = "st_vehicle_brand_brand", nullable = false)
-            private String vehicleBrand;
+    @Column(name = "st_vehicle_brand_brand", nullable = false)
+    private String vehicleBrand;
 
-            @Column(name = "createby")
-            private String createdBy;
+    @Column(name = "created_by")
+    private String createdBy;
 
-            @Column(name = "createddate")
-            private LocalDateTime createdDate;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 
-            @Column(name = "modifiedby")
-            private String modifiedBy;
+    @Column(name = "modified_by")
+    private String modifiedBy;
 
-            @Column(name = "modifieddate")
-            private LocalDateTime modifiedDate;
+    @Column(name = "modified_date")
+    private LocalDateTime modifiedDate;
 
-            @Column(name = "isdeleted")
-            private Boolean isDeleted;
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 
-            @Column(name = "deletedby")
-            private String deletedBy;
+    @Column(name = "deleted_by")
+    private String deletedBy;
 
-            @Column(name = "deleteddate")
-            private LocalDateTime deletedDate;
+    @Column(name = "deleted_date")
+    private LocalDateTime deletedDate;
 
-            @Column(name = "ipaddress")
-            private String ipAddress;
+    @Column(name = "ip_address")
+    private String ipAddress;
 
-            @Column(name = "action")
-            private String action;
+    @Column(name = "action")
+    private String action;
 
-            @Column(name = "previousvalue")
-            private String previousValue;
+    @Column(name = "previous_value")
+    private String previousValue;
 
-            @Column(name = "currentvalue")
-            private String currentValue;
+    @Column(name = "current_value")
+    private String currentValue;
 
-            @Column(name = "recordversion")
-            private String recordVersion;
+    @Column(name = "record_version")
+    private String recordVersion;
 
-            @Column(name = "operationtype")
-            private String operationType;
+    @Column(name = "operation_type")
+    private String operationType;
 
-            @Column(name = "role")
-            private String role;
+    @Column(name = "role")
+    private String role;
 }

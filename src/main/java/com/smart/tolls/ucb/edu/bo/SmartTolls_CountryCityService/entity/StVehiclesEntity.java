@@ -16,7 +16,7 @@ public class StVehiclesEntity {
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    @Column(name = "st_vehicles_id")
+    @Column(name = "st_vehicle_id")
     private Long stVehiclesId;
 
 
@@ -47,46 +47,46 @@ public class StVehiclesEntity {
     @Column(name = "st_vehicle_manufacture_year")
     private String stVehicleManufactureYear;
 
-    @Column(name = "CreatedBy")
+    @Column(name = "created_by")
     private String createdBy;
 
-    @Column(name = "CreatedDate")
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @Column(name = "ModifiedBy")
+    @Column(name = "modified_by")
     private String modifiedBy;
 
-    @Column(name = "ModifiedDate")
+    @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
 
-    @Column(name = "IsDeleted")
+    @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @Column(name = "DeletedBy")
+    @Column(name = "deleted_by")
     private String deletedBy;
 
-    @Column(name = "DeletedDate")
+    @Column(name = "deleted_date")
     private LocalDateTime deletedDate;
 
-    @Column(name = "IPAddress")
+    @Column(name = "ip_address")
     private String ipAddress;
 
-    @Column(name = "Action")
+    @Column(name = "action")
     private String action;
 
-    @Column(name = "PreviousValue")
+    @Column(name = "previous_value")
     private String previousValue;
 
-    @Column(name = "CurrentValue")
+    @Column(name = "current_value")
     private String currentValue;
 
-    @Column(name = "RecordVersion")
+    @Column(name = "record_version")
     private String recordVersion;
 
-    @Column(name = "OperationType")
+    @Column(name = "operation_type")
     private String operationType;
 
-    @Column(name = "Role")
+    @Column(name = "role")
     private String role;
 
 

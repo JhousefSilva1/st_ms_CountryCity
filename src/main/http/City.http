@@ -2,8 +2,8 @@ POST http://localhost:8002/api/cities
 Content-Type: application/json
 
 {
-  "stCityCity": "Jujuy",
-  "stCountryStCountryId": 189,
+  "stCityCity": "Buenos Aires",
+  "stCountryStCountryId": 1,
   "createdBy": "admin",
   "createdDate": "2024-08-13T10:00:00",
   "modifiedBy": "admin",

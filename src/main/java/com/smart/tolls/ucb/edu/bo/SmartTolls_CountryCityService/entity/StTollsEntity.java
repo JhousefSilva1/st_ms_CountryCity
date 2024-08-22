@@ -34,47 +34,46 @@ public class StTollsEntity {
     @Column(name = "st_road_type_st_road_type_id", nullable = false)
     private Long stRoadTypeStRoadTypeId;
 
-    @Column(name = "createdby",nullable = false)
+    @Column(name = "created_by")
     private String createdBy;
 
-    @Column(name = "createddate",nullable = false)
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @Column(name = "modifiedby",nullable = false)
+    @Column(name = "modified_by")
     private String modifiedBy;
 
-    @Column(name = "modifieddate",nullable = false)
+    @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
 
-
-    @Column(name = "isdeleted",nullable = false)
+    @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @Column(name = "deletedby",nullable = false)
+    @Column(name = "deleted_by")
     private String deletedBy;
 
-    @Column(name = "deleteddate",nullable = false)
+    @Column(name = "deleted_date")
     private LocalDateTime deletedDate;
 
-    @Column(name = "ipaddress",nullable = false)
+    @Column(name = "ip_address")
     private String ipAddress;
 
-    @Column(name = "action",nullable = false)
+    @Column(name = "action")
     private String action;
 
-    @Column(name = "previousvalue",nullable = false)
+    @Column(name = "previous_value")
     private String previousValue;
 
-    @Column(name = "currentvalue",nullable = false)
+    @Column(name = "current_value")
     private String currentValue;
 
-    @Column(name = "recordversion",nullable = false)
-    private String  recordVersion;
+    @Column(name = "record_version")
+    private String recordVersion;
 
-    @Column(name = "operationtype",nullable = false)
+    @Column(name = "operation_type")
     private String operationType;
 
-    @Column(name = "role",nullable = false)
+    @Column(name = "role")
     private String role;
 
 
