@@ -11,30 +11,33 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "st_vehicles_wallet")
-public class StVehiclesWalletEntity {
+@Table(name = "st_ticket")
+public class StTicketEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "st_vehicle_wallet_id")
-    private Long stVehiclesWalletId;
+    @Column(name = "st_ticker_id", nullable = false)
+    private Long id;
 
-    @Column(name = "st_vehicle_code", nullable = false)
-    private String stVehiclesCode;
-
-    @Column(name = "st_vehicle_amount", nullable = false)
-    private String stVehicleAmount;
+    @Column(name = "st_ticket_description", nullable = false, length = 100)
+    private String description;
 
     @Column(name = "st_vehicles_st_vehicle_id", nullable = false)
-    private Integer stVehiclesStVehiclesId;
+    private Integer vehicleId;
 
-    @Column(name = "created_by")
+    @Column(name = "st_lines_st_line_id", nullable = false)
+    private Integer lineId;
+
+    @Column(name = "st_ticket_date_hour", nullable = false)
+    private LocalDateTime dateHour;
+
+    @Column(name = "created_by", length = 100)
     private String createdBy;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
-    @Column(name = "modified_by")
+    @Column(name = "modified_by", length = 100)
     private String modifiedBy;
 
     @Column(name = "modified_date")
@@ -43,30 +46,30 @@ public class StVehiclesWalletEntity {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @Column(name = "deleted_by")
+    @Column(name = "deleted_by", length = 100)
     private String deletedBy;
 
     @Column(name = "deleted_date")
     private LocalDateTime deletedDate;
 
-    @Column(name = "ip_address")
+    @Column(name = "ip_address", length = 100)
     private String ipAddress;
 
-    @Column(name = "action")
+    @Column(name = "action", length = 50)
     private String action;
 
-    @Column(name = "previous_value")
+    @Column(name = "previous_value", length = 100)
     private String previousValue;
 
-    @Column(name = "current_value")
+    @Column(name = "current_value", length = 100)
     private String currentValue;
 
-    @Column(name = "record_version")
+    @Column(name = "record_version", length = 10)
     private String recordVersion;
 
-    @Column(name = "operation_type")
+    @Column(name = "operation_type", length = 100)
     private String operationType;
 
-    @Column(name = "role")
+    @Column(name = "role", length = 100)
     private String role;
 }
