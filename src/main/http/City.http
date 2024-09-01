@@ -1,8 +1,9 @@
 POST http://localhost:8002/api/cities
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNTIyNDI2NiwiZXhwIjoxNzI1MjI3ODY2fQ.i5qBZslTHGM-LddV19BuLDUdfvzADS197u-jtIVtAjA
 
 {
-  "stCityCity": "Buenos Aires",
+  "stCityCity": "Salta",
   "stCountryStCountryId": 1,
   "createdBy": "admin",
   "createdDate": "2024-08-13T10:00:00",
