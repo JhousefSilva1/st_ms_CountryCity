@@ -186,13 +186,13 @@ public class StPersonEntity {
     @Column(name = "role")
     private String role;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "st_persons_st_person_type",
             joinColumns = @JoinColumn(name = "st_person_id"),
             inverseJoinColumns = @JoinColumn(name = "st_person_type_id")
     )
-    private Set<StPersonTypeEntity> personTypes = new HashSet<>();
+    private Set<StPersonTypeEntity> personTypes;
 
     // Getters y Setters serán generados por Lombok
 }

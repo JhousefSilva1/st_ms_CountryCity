@@ -4,6 +4,7 @@ import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Services.StCityS
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StCityEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,11 +16,13 @@ public class StCityController {
     @Autowired
     private StCityService stCityService;
 
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('EMPLOYEE')")
     @GetMapping
     public List<StCityEntity> getAllCities() {
         return stCityService.getAllCities();
     }
 
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('EMPLOYEE')")
     @GetMapping("/{id}")
     public ResponseEntity<StCityEntity> getCityById(@PathVariable int id) {
         return stCityService.getCityById(id)
@@ -27,6 +30,7 @@ public class StCityController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public StCityEntity createCity(@RequestBody StCityEntity city) {
         return stCityService.createCity(city);

@@ -135,8 +135,8 @@ public class StPersonTypeEntity {
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(mappedBy = "personTypes")
-    private Set<StPersonEntity> persons = new HashSet<>();
+//    @ManyToMany(mappedBy = "personTypes")
+//    private Set<StPersonEntity> persons = new HashSet<>();
 
     // Getters y Setters serán generados por Lombok
 }

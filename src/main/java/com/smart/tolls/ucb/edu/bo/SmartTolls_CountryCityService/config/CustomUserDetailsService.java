@@ -1,5 +1,6 @@
 package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.config;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Repository.StPersonRepository;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StPersonEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("entro a loadUserByUsername");
 
         StPersonEntity stPersonEntity = stPersonRepository.findByEmail(email) .orElseThrow(() ->
                 new UsernameNotFoundException("User not exists by Username or Email"));
+        System.out.println("2");
 
         Set<GrantedAuthority> authorities = stPersonEntity.getPersonTypes().stream()
                 .map((personType) -> new SimpleGrantedAuthority(personType.getStPersonType()))
                 .collect(Collectors.toSet());
+        System.out.println("2");
 
         return new User(
                 email,

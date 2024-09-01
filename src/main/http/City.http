@@ -1,6 +1,6 @@
 POST http://localhost:8002/api/cities
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNTIyNDI2NiwiZXhwIjoxNzI1MjI3ODY2fQ.i5qBZslTHGM-LddV19BuLDUdfvzADS197u-jtIVtAjA
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNTIyNzIwNCwiZXhwIjoxNzI1MjMwODA0fQ.7iG0Xfn6J8Ty1W-DEKywYoZQSq--ePmxjiJ12rP9EYY
 
 {
   "stCityCity": "Salta",
