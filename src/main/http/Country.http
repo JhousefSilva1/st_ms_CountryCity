@@ -14,7 +14,7 @@ POST http://localhost:8002/api/countries
 Content-Type: application/json
 
 {
-  "countryName": "Argentina",
+  "countryName": "Colombia",
   "createdBy": "admin",
   "createdDate": "2024-08-13T10:00:00",
   "modifiedBy": "admin",

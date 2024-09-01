@@ -3,8 +3,8 @@ POST http://localhost:8002/api/personTypes
 Content-Type: application/json
 
 {
-  "stPersonTypeId": 1,
-  "stPersonType": "Empleado",
+
+  "stPersonType": "Cliente",
   "createdBy": "admin",
   "createdDate": "2024-08-13T12:34:56",
   "modifiedBy": "admin",
