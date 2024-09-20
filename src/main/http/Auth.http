@@ -4,13 +4,13 @@ POST http://localhost:8002/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "john.doe@example.com",
+  "email": "john@google.com",
   "password": "12345678"
 }
 
 ###
-POST http://localhost:8002/api/admin
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNTIyNDAxMiwiZXhwIjoxNzI1MjI3NjExfQ.U5weq649e4NAg0H7gB682tzVafYHZ6C2q2RmORxP1Xg
-
-
+#POST http://localhost:8002/api/admin
+#Content-Type: application/json
+#Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNTIyNDAxMiwiZXhwIjoxNzI1MjI3NjExfQ.U5weq649e4NAg0H7gB682tzVafYHZ6C2q2RmORxP1Xg
+#
+#

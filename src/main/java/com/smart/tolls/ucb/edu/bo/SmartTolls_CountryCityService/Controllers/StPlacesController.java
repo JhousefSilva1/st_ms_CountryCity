@@ -4,6 +4,7 @@ import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Services.StPlace
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StPlacesEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,11 +16,13 @@ public class StPlacesController {
     @Autowired
     private StPlacesService stPlacesService;
 
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('EMPLOYEE')")
     @GetMapping
     public List<StPlacesEntity> getAllPlaces() {
         return stPlacesService.getAllPlaces();
     }
 
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('EMPLOYEE')")
     @GetMapping("/{id}")
     public ResponseEntity<StPlacesEntity> getPlaceById(@PathVariable int id) {
         return stPlacesService.getPlaceById(id)
@@ -27,16 +30,19 @@ public class StPlacesController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public StPlacesEntity createPlace(@RequestBody StPlacesEntity place) {
         return stPlacesService.createPlace(place);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<StPlacesEntity> updatePlace(@PathVariable int id, @RequestBody StPlacesEntity placeDetails) {
         return ResponseEntity.ok(stPlacesService.updatePlace(id, placeDetails));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlace(@PathVariable int id) {
         stPlacesService.deletePlace(id);

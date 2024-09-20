@@ -36,11 +36,12 @@ public class StCityController {
         return stCityService.createCity(city);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<StCityEntity> updateCity(@PathVariable int id, @RequestBody StCityEntity cityDetails) {
         return ResponseEntity.ok(stCityService.updateCity(id, cityDetails));
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCity(@PathVariable int id) {
         stCityService.deleteCity(id);
