@@ -1,6 +1,15 @@
+server:
+  port: 8002
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+#      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+       defaultZone: http://localhost:8761/eureka/
 spring:
   application:
-    name: country_city-microservice
+    name: country-city-microservice
 
   datasource:
     url: jdbc:postgresql://localhost:5432/smartTolls_db
@@ -23,25 +32,6 @@ spring:
       enabled: false
       import-check:
         enabled: false
-
-  profiles:
-    active: dev
-  logging:
-    level:
-      org.springframework: DEBUG
-      org.springframework.security: DEBUG
-
-  devtools:
-    restart:
-      enabled: true  # Habilita el reinicio automático
-    livereload:
-      enabled: true  # Habilita LiveReload para refrescar el navegador automáticamente
-
-
-server:
-  port: 8002
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+logging:
+  level:
+    org.springframework.cloud.gateway: debug

@@ -20,3 +20,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huQGdvb2dsZS5jb20iLCJpY
   "operationType": "INSERT",
   "role": "admin"
 }
+
+###
+GET http://localhost:8888/api/cities
+Content-Type: application/json
+
