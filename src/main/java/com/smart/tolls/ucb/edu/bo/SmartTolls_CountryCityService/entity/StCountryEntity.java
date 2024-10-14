@@ -20,7 +20,7 @@ public class StCountryEntity {
     @Column(name = "st_country_id")
     private Long idCountry;
 
-    @Column(name = "st_country_name")
+//    @Column(name = "st_country_name")
     private String countryName;
 
     @JsonIgnore

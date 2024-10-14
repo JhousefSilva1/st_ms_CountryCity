@@ -12,7 +12,7 @@ spring:
     name: country-city-microservice
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/smartTolls_db
+    url: jdbc:postgresql://localhost:5432/MsCountries
     username: admin
     password: 12345
     driver-class-name: org.postgresql.Driver
