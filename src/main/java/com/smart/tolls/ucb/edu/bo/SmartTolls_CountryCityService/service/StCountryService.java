@@ -14,25 +14,29 @@ public class StCountryService {
     private StCountryRepository stCountryRepository;
 
     public List<StCountryEntity> getAllCountries() {
-        return stCountryRepository.findAll();
+        return stCountryRepository.findAllByStatus();
     }
 
     public Optional<StCountryEntity> getCountryById(Long id) {
-        return Optional.of(stCountryRepository.findById(id).get());
+        return Optional.of(stCountryRepository.findByIdAndByStatus(id, 1L));
     }
 
-    public StCountryEntity createCountry(StCountryEntity stCountryEntity) {
-        return stCountryRepository.save(stCountryEntity);
+    public Optional<StCountryEntity> createCountry(StCountryEntity stCountryEntity) {
+        StCountryEntity stCountry = new StCountryEntity();
+        stCountry.setCountryName(stCountryEntity.getCountryName());
+        return Optional.of(stCountryRepository.save(stCountry));
     }
 
-    public  StCountryEntity updateCountry(Long id, StCountryEntity countryDetails) {
+    public Optional<StCountryEntity> updateCountry(Long id, StCountryEntity countryDetails) {
         StCountryEntity country = stCountryRepository.findById(id).orElseThrow(() -> new RuntimeException("Country not found"));
-        country.setCountryName( countryDetails.getCountryName());
-        return stCountryRepository.save(country);
+        country.setCountryName(countryDetails.getCountryName());
+        return Optional.of(stCountryRepository.save(country));
     }
 
-    public void deleteCountry(Long id) {
-        stCountryRepository.deleteById(id);
+    public Optional<StCountryEntity> deleteCountry(Long id) {
+        StCountryEntity country = stCountryRepository.findById(id).orElseThrow(() -> new RuntimeException("Country not found"));
+        country.setStatus(0);
+        return Optional.of(stCountryRepository.save(country));
     }
 
 }

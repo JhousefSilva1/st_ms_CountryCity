@@ -19,7 +19,18 @@ public class StCityEntity {
     @Column(name = "st_city_name")
     private String cityName;
 
+    @Column(name = "st_city_status")
+    private Integer status;
+
     @ManyToOne
     @JoinColumn(name = "st_country_st_country_id", nullable = false)
     private StCountryEntity country;
+
+    @Embedded
+    private Audit audit = new Audit();
+
+    @PrePersist
+    public void prePersist() {
+        this.status = 1;
+    }
 }

@@ -20,8 +20,19 @@ public class StCountryEntity {
     @Column(name = "st_country_id")
     private Long idCountry;
 
-//    @Column(name = "st_country_name")
+    @Column(name = "st_country_name")
     private String countryName;
+
+    @Column(name = "st_country_status")
+    private Integer status;
+
+    @Embedded
+    private Audit audit = new Audit();
+
+    @PrePersist
+    public void prePersist() {
+        this.status = 1;
+    }
 
     @JsonIgnore
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
