@@ -1,7 +1,10 @@
 package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +28,10 @@ public class StCityEntity {
     @ManyToOne
     @JoinColumn(name = "st_country_st_country_id", nullable = false)
     private StCountryEntity country;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
+    private List<StPlacesEntity> places;
 
     @Embedded
     private Audit audit = new Audit();

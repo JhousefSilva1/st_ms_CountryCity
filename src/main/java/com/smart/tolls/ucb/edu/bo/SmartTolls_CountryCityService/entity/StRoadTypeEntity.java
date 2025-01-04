@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 @Entity
 @Table(name = "st_road_type")
-public class StRoadType {
+public class StRoadTypeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,5 +18,7 @@ public class StRoadType {
     private Long idRoadType;
 
     private String roadType;
+
+
 
 }
