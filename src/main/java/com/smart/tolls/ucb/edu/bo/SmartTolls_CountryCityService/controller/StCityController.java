@@ -18,10 +18,20 @@ public class StCityController extends ApiController{
     @Autowired
     private StCityService stCityService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ApiResponse<List<StCityEntity>> getAllCities(){
         ApiResponse<List<StCityEntity>> response = new ApiResponse<>();
         List<StCityEntity> cities = stCityService.getAllCities();
+        response.setData(cities);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage(HttpStatus.OK.getReasonPhrase());
+        return logApiResponse(response);
+    }
+
+    @GetMapping
+    public ApiResponse<List<StCityEntity>> getAllCitiesByStatus(){
+        ApiResponse<List<StCityEntity>> response = new ApiResponse<>();
+        List<StCityEntity> cities = stCityService.getAllCitiesByStatus();
         response.setData(cities);
         response.setStatus(HttpStatus.OK.value());
         response.setMessage(HttpStatus.OK.getReasonPhrase());

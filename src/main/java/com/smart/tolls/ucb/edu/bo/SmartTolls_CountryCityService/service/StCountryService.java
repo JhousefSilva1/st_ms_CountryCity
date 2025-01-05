@@ -14,6 +14,10 @@ public class StCountryService {
     private StCountryRepository stCountryRepository;
 
     public List<StCountryEntity> getAllCountries() {
+        return stCountryRepository.findAll();
+    }
+
+    public List<StCountryEntity> getAllCountriesByStatus() {
         return stCountryRepository.findAllByStatus();
     }
 

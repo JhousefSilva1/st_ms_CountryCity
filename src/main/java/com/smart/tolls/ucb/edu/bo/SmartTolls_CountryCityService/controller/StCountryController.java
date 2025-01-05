@@ -21,10 +21,20 @@ public class StCountryController extends ApiController {
     @Autowired
     private StCountryService stCountryService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ApiResponse<List<StCountryEntity>> getAllCountries(){
         ApiResponse<List<StCountryEntity>> response = new ApiResponse<>();
         List<StCountryEntity> countryEntities = stCountryService.getAllCountries();
+        response.setData(countryEntities);
+        response.setStatus(HttpStatus.OK.value());
+        response.setMessage(HttpStatus.OK.getReasonPhrase());
+        return logApiResponse(response);
+    }
+
+    @GetMapping
+    public ApiResponse<List<StCountryEntity>> getAllCountriesByStatus(){
+        ApiResponse<List<StCountryEntity>> response = new ApiResponse<>();
+        List<StCountryEntity> countryEntities = stCountryService.getAllCountriesByStatus();
         response.setData(countryEntities);
         response.setStatus(HttpStatus.OK.value());
         response.setMessage(HttpStatus.OK.getReasonPhrase());

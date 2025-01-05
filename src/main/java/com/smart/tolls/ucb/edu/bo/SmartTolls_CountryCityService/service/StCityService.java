@@ -14,6 +14,10 @@ public class StCityService {
     private StCityRepository stCityRepository;
 
     public List<StCityEntity> getAllCities() {
+        return stCityRepository.findAll();
+    }
+
+    public List<StCityEntity> getAllCitiesByStatus() {
         return stCityRepository.findAllByStatus();
     }
 
