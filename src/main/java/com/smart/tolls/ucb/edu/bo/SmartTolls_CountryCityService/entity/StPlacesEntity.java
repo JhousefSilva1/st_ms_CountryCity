@@ -22,6 +22,8 @@ public class StPlacesEntity {
 
     private String placeName;
 
+    private Integer status;
+
     @ManyToOne
     @JoinColumn(name = "st_city_st_city_id", nullable = false)
     private StCityEntity city;
