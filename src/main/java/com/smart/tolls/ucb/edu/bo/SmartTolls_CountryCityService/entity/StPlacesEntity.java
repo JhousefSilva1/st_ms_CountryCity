@@ -32,6 +32,11 @@ public class StPlacesEntity {
     @OneToMany(mappedBy = "places", fetch = FetchType.LAZY)
     private List<StTollsEntity> tolls;
 
+    @Embedded
+    private Audit audit = new Audit();
 
-
+    @PrePersist
+    public void prePersist() {
+        this.status = 1;
+    }
 }

@@ -20,8 +20,8 @@ public class StPlacesService {
     }
 
     //getPlacesById
-    public StPlacesEntity getPlaceById(Long id){
-        return stPlacesRepository.findById(id).get();
+    public Optional<StPlacesEntity> getPlaceById(Long id){
+        return Optional.of(stPlacesRepository.findByIdAndByStatus(id, 1L));
     }
 
     //getAllPlacesByStatus
@@ -31,9 +31,7 @@ public class StPlacesService {
 
 
     public Optional<StPlacesEntity> createPlaces(StPlacesEntity stPlacesEntity){
-        StPlacesEntity stPlaces = new StPlacesEntity();
-        stPlaces.setPlaceName(stPlacesEntity.getPlaceName());
-        return Optional.of(stPlacesRepository.save(stPlaces));
+        return Optional.of(stPlacesRepository.save(stPlacesEntity));
     }
     public Optional<StPlacesEntity> updatePlaces(Long id, StPlacesEntity placesDetails){
         StPlacesEntity places = stPlacesRepository.findById(id).orElseThrow(() -> new RuntimeException("Place not found"));
