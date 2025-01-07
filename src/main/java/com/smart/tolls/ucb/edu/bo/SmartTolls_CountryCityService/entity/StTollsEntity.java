@@ -23,5 +23,14 @@ public class StTollsEntity {
     @JoinColumn(name = "st_places_st_places_id", nullable = false)
     private StPlacesEntity places;
 
+    @Column(name = "st_tolls_status")
+    private Integer status;
 
+    @Embedded
+    private Audit audit = new Audit();
+
+    @PrePersist
+    public void prePersist() {
+        this.status = 1;
+    }
 }

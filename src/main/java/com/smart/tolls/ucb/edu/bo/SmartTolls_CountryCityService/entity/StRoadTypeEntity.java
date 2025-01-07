@@ -19,6 +19,14 @@ public class StRoadTypeEntity {
 
     private String roadType;
 
+    @Column(name = "st_road_type_status")
+    private Integer status;
 
+    @Embedded
+    private Audit audit = new Audit();
 
+    @PrePersist
+    public void prePersist() {
+        this.status = 1;
+    }
 }
