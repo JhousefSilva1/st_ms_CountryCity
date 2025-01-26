@@ -1,8 +1,11 @@
 package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.controller;
 
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StCityEntity;
+import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StCountryEntity;
+import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.models.request.StCityRequest;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.models.response.ApiResponse;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.service.StCityService;
+import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.service.StCountryService;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,9 @@ import java.util.Optional;
 public class StCityController extends ApiController{
     @Autowired
     private StCityService stCityService;
+
+    @Autowired
+    private StCountryService stCountryService;
 
     @GetMapping("/all")
     public ApiResponse<List<StCityEntity>> getAllCities(){
@@ -62,13 +68,22 @@ public class StCityController extends ApiController{
     }
 
     @PostMapping
-    public ApiResponse<Optional<StCityEntity>> createCity(@RequestBody StCityEntity stCityEntity){
+    public ApiResponse<Optional<StCityEntity>> createCity(@RequestBody StCityRequest stCityEntity){
         ApiResponse<Optional<StCityEntity>> response = new ApiResponse<>();
         try {
-            Optional<StCityEntity> city = stCityService.createCity(stCityEntity);
-            response.setData(city);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage(HttpStatus.OK.getReasonPhrase());
+            Optional<StCountryEntity> country = stCountryService.getCountryById(stCityEntity.getIdCountry());
+            if(country.isPresent()){
+                StCityEntity cityEntity = new StCityEntity();
+                cityEntity.setCityName(stCityEntity.getCityName());
+                cityEntity.setCountry(country.get());
+                Optional<StCityEntity> city = stCityService.createCity(cityEntity);
+                response.setData(city);
+                response.setStatus(HttpStatus.OK.value());
+                response.setMessage(HttpStatus.OK.getReasonPhrase());
+            }else {
+                response.setStatus(HttpStatus.NOT_FOUND.value());
+                response.setMessage(HttpStatus.NOT_FOUND.getReasonPhrase());
+            }
         } catch (ConstraintViolationException e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
