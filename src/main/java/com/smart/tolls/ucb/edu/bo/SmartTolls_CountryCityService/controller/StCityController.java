@@ -9,7 +9,6 @@ import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.service.StCountr
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,10 +26,26 @@ public class StCityController extends ApiController{
     @GetMapping("/all")
     public ApiResponse<List<StCityEntity>> getAllCities(){
         ApiResponse<List<StCityEntity>> response = new ApiResponse<>();
-        List<StCityEntity> cities = stCityService.getAllCities();
-        response.setData(cities);
-        response.setStatus(HttpStatus.OK.value());
-        response.setMessage(HttpStatus.OK.getReasonPhrase());
+        try {
+            if (!stCityService.isServiceAvailable()) {
+                response.setStatus(HttpStatus.SERVICE_UNAVAILABLE.value());
+                response.setMessage("The city service is currently unavailable");
+                return logApiResponse(response);
+            }
+            List<StCityEntity> cities = stCityService.getAllCities();
+            if(cities == null || cities.isEmpty()){
+                response.setStatus(HttpStatus.NO_CONTENT.value());
+                response.setMessage("No cities found");
+            } else {
+                response.setData(cities);
+                response.setStatus(HttpStatus.OK.value());
+                response.setMessage(HttpStatus.OK.getReasonPhrase());
+            }
+
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        }
         return logApiResponse(response);
     }
 
