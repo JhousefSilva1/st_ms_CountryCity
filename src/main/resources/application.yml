@@ -2,10 +2,10 @@ server:
   port: 8002
 eureka:
   instance:
-#    hostname: localhost  //this is for the local database
+    hostname: localhost
 
     #   settings for AWS RDS PostgreSQL
-    hostname: mscountries.cfs6q686kbf1.us-east-2.rds.amazonaws.com
+#    hostname: mscountries.cfs6q686kbf1.us-east-2.rds.amazonaws.com
   client:
     service-url:
 #      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
@@ -17,15 +17,15 @@ spring:
   datasource:
 #    this is for the local datrabase
 
-#    url: jdbc:postgresql://localhost:5432/MsCountries
-#    username: admin
-#    password: 12345
+    url: jdbc:postgresql://localhost:5432/MsCountries
+    username: admin
+    password: 12345
 
 #   settings for AWS RDS PostgreSQL
 
-    url: jdbc:postgresql://mscountries.cfs6q686kbf1.us-east-2.rds.amazonaws.com:5432/MsCountries
-    username: postgres
-    password: 12345678A
+#    url: jdbc:postgresql://mscountries.cfs6q686kbf1.us-east-2.rds.amazonaws.com:5432/MsCountries
+#    username: postgres
+#    password: 12345678A
 
     driver-class-name: org.postgresql.Driver
 

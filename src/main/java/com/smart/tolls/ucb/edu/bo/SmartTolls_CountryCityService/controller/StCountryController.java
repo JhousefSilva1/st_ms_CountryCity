@@ -1,5 +1,6 @@
 package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.controller;
 
+import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StCityEntity;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StCountryEntity;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.models.response.ApiResponse;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.service.StCountryService;
@@ -42,10 +43,23 @@ public class StCountryController extends ApiController {
     }
 
     @GetMapping("/{id}")
-    public StCountryEntity getCountryById(@PathVariable Long id){
-        Optional<StCountryEntity> country = stCountryService.getCountryById(id);
-
-        return country.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build()).getBody();
+    public ApiResponse<StCountryEntity> getCountryById(@PathVariable Long id){
+        ApiResponse<StCountryEntity> response = new ApiResponse<>();
+        try {
+            Optional<StCountryEntity> country = stCountryService.getCountryById(id);
+            if(country.isPresent()){
+                response.setData(country.get());
+                response.setStatus(HttpStatus.OK.value());
+                response.setMessage(HttpStatus.OK.getReasonPhrase());
+            } else {
+                response.setStatus(HttpStatus.NOT_FOUND.value());
+                response.setMessage(HttpStatus.NOT_FOUND.getReasonPhrase());
+            }
+        } catch (NullPointerException e) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage(HttpStatus.NOT_FOUND.getReasonPhrase());
+        }
+        return logApiResponse(response);
     }
 
     @PostMapping
