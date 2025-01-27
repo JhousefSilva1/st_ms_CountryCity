@@ -38,7 +38,7 @@ public class StCityController extends ApiController{
             validateCity(response, cities);
         } catch (Exception e) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            response.setMessage(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
         }
         return logApiResponse(response);
     }
