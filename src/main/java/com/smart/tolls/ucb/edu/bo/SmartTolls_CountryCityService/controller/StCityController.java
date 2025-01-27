@@ -8,6 +8,8 @@ import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.service.StCitySe
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.service.StCountryService;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,15 +35,7 @@ public class StCityController extends ApiController{
                 return logApiResponse(response);
             }
             List<StCityEntity> cities = stCityService.getAllCities();
-            if(cities == null || cities.isEmpty()){
-                response.setStatus(HttpStatus.NO_CONTENT.value());
-                response.setMessage("No cities found");
-            } else {
-                response.setData(cities);
-                response.setStatus(HttpStatus.OK.value());
-                response.setMessage(HttpStatus.OK.getReasonPhrase());
-            }
-
+            validateCity(response, cities);
         } catch (Exception e) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMessage(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
@@ -49,13 +43,32 @@ public class StCityController extends ApiController{
         return logApiResponse(response);
     }
 
+    private void validateCity(ApiResponse<List<StCityEntity>> response, List<StCityEntity> cities) {
+        if(cities == null || cities.isEmpty()){
+            response.setStatus(HttpStatus.NO_CONTENT.value());
+            response.setMessage("No cities found");
+        } else {
+            response.setData(cities);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage(HttpStatus.OK.getReasonPhrase());
+        }
+    }
+
     @GetMapping
     public ApiResponse<List<StCityEntity>> getAllCitiesByStatus(){
         ApiResponse<List<StCityEntity>> response = new ApiResponse<>();
-        List<StCityEntity> cities = stCityService.getAllCitiesByStatus();
-        response.setData(cities);
-        response.setStatus(HttpStatus.OK.value());
-        response.setMessage(HttpStatus.OK.getReasonPhrase());
+        try {
+            if (!stCityService.isServiceAvailable()) {
+                response.setStatus(HttpStatus.SERVICE_UNAVAILABLE.value());
+                response.setMessage("The city service is currently unavailable");
+                return logApiResponse(response);
+            }
+            List<StCityEntity> cities = stCityService.getAllCitiesByStatus();
+            validateCity(response, cities);
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+        }
         return logApiResponse(response);
     }
 
@@ -63,6 +76,11 @@ public class StCityController extends ApiController{
     public ApiResponse<StCityEntity> getCityById(@PathVariable Long id){
         ApiResponse<StCityEntity> response = new ApiResponse<>();
         try {
+            if(id == null || id <= 0){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Invalid id");
+                return logApiResponse(response);
+            }
             Optional<StCityEntity> city = stCityService.getCityById(id);
             if(city.isPresent()){
                 response.setData(city.get());
@@ -70,14 +88,20 @@ public class StCityController extends ApiController{
                 response.setMessage(HttpStatus.OK.getReasonPhrase());
             } else {
                 response.setStatus(HttpStatus.NOT_FOUND.value());
-                response.setMessage(HttpStatus.NOT_FOUND.getReasonPhrase());
+                response.setMessage("City with ID: " + id + " not found");
             }
         } catch (NullPointerException e) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
-            response.setMessage(HttpStatus.NOT_FOUND.getReasonPhrase());
+            response.setMessage("City with ID: " + id + " not found");
+        } catch (DataAccessException e) {
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Database error: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Invalid argument: " + e.getMessage());
         } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
         }
         return logApiResponse(response);
     }
@@ -86,6 +110,16 @@ public class StCityController extends ApiController{
     public ApiResponse<Optional<StCityEntity>> createCity(@RequestBody StCityRequest stCityEntity){
         ApiResponse<Optional<StCityEntity>> response = new ApiResponse<>();
         try {
+            if(stCityEntity.getCityName() == null || stCityEntity.getCityName().isEmpty()){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("City name is required");
+                return logApiResponse(response);
+            }
+            if(stCityEntity.getIdCountry() == null){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Country name is required");
+                return logApiResponse(response);
+            }
             Optional<StCountryEntity> country = stCountryService.getCountryById(stCityEntity.getIdCountry());
             if(country.isPresent()){
                 StCityEntity cityEntity = new StCityEntity();
@@ -97,29 +131,63 @@ public class StCityController extends ApiController{
                 response.setMessage(HttpStatus.OK.getReasonPhrase());
             }else {
                 response.setStatus(HttpStatus.NOT_FOUND.value());
-                response.setMessage(HttpStatus.NOT_FOUND.getReasonPhrase());
+                response.setMessage("Country with ID: " + stCityEntity.getIdCountry() + " not found");
             }
         } catch (ConstraintViolationException e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("Validation error: " + e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            response.setStatus(HttpStatus.CONFLICT.value());
+            response.setMessage("Data integrity error: " + e.getMessage());
         } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
         }
         return logApiResponse(response);
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<Optional<StCityEntity>> updateCity(@PathVariable Long id, @RequestBody StCityEntity stCityEntity){
+    public ApiResponse<Optional<StCityEntity>> updateCity(@PathVariable Long id, @RequestBody StCityRequest stCityEntity){
         ApiResponse<Optional<StCityEntity>> response = new ApiResponse<>();
         try {
-            Optional<StCityEntity> city = stCityService.updateCity(id, stCityEntity);
-            response.setData(city);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage(HttpStatus.OK.getReasonPhrase());
+            if(id == null || id <= 0){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Invalid id");
+                return logApiResponse(response);
+            }
+            if(stCityEntity.getCityName() == null || stCityEntity.getCityName().isEmpty()){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("City name is required");
+                return logApiResponse(response);
+            }
+            if(stCityEntity.getIdCountry() == null){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Country name is required");
+                return logApiResponse(response);
+            }
+            Optional<StCountryEntity> country = stCountryService.getCountryById(stCityEntity.getIdCountry());
+            if(country.isPresent()){
+                StCityEntity cityEntity = new StCityEntity();
+                cityEntity.setCityName(stCityEntity.getCityName());
+                cityEntity.setCountry(country.get());
+                cityEntity.setIdCity(cityEntity.getIdCity());
+                Optional<StCityEntity> city = stCityService.updateCity(id, cityEntity);
+                response.setData(city);
+                response.setStatus(HttpStatus.OK.value());
+                response.setMessage(HttpStatus.OK.getReasonPhrase());
+            } else {
+                response.setStatus(HttpStatus.NOT_FOUND.value());
+                response.setMessage("Country with ID: " + stCityEntity.getIdCountry() + " not found");
+            }
+        } catch (ConstraintViolationException e) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Validation error: " + e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            response.setStatus(HttpStatus.CONFLICT.value());
+            response.setMessage("Data integrity error: " + e.getMessage());
         } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
         }
         return logApiResponse(response);
     }
