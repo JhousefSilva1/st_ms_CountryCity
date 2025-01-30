@@ -6,6 +6,8 @@ import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.service.StPlaces
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +25,20 @@ public class StPlacesController extends ApiController {
     @GetMapping("/all")
     public ApiResponse<List<StPlacesEntity>> getAllPlaces() {
         ApiResponse<List<StPlacesEntity>> response = new ApiResponse<>();
-        List<StPlacesEntity> placesEntities = stPlacesService.getAllPlaces();
-        response.setData(placesEntities);
-        response.setStatus(HttpStatus.OK.value());
-        response.setMessage(HttpStatus.OK.getReasonPhrase());
+        try {
+            if (!stPlacesService.isServiceAvailable()) {
+                response.setStatus(HttpStatus.SERVICE_UNAVAILABLE.value());
+                response.setMessage("The places service is currently unavailable");
+                return logApiResponse(response);
+            }
+            List<StPlacesEntity> placesEntities = stPlacesService.getAllPlaces();
+            response.setData(placesEntities);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage(HttpStatus.OK.getReasonPhrase());
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
+        }
         return logApiResponse(response);
     }
 
@@ -34,10 +46,15 @@ public class StPlacesController extends ApiController {
     @GetMapping
     public ApiResponse<List<StPlacesEntity>> getAllPlacesByStatus() {
         ApiResponse<List<StPlacesEntity>> response = new ApiResponse<>();
-        List<StPlacesEntity> placesEntities = stPlacesService.getAllPlacesByStatus();
-        response.setData(placesEntities);
-        response.setStatus(HttpStatus.OK.value());
-        response.setMessage(HttpStatus.OK.getReasonPhrase());
+        try {
+            List<StPlacesEntity> placesEntities = stPlacesService.getAllPlacesByStatus();
+            response.setData(placesEntities);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage(HttpStatus.OK.getReasonPhrase());
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
+        }
         return logApiResponse(response);
     }
 
@@ -46,6 +63,11 @@ public class StPlacesController extends ApiController {
     public ApiResponse<StPlacesEntity> getPlacesById(@PathVariable Long id) {
         ApiResponse<StPlacesEntity> response = new ApiResponse<>();
         try {
+            if(id == null || id <= 0){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Invalid id");
+                return logApiResponse(response);
+            }
             Optional<StPlacesEntity> place = stPlacesService.getPlaceById(id);
             if(place.isPresent()) {
                 response.setData(place.get());
@@ -55,12 +77,18 @@ public class StPlacesController extends ApiController {
                 response.setStatus(HttpStatus.NOT_FOUND.value());
                 response.setMessage(HttpStatus.NOT_FOUND.getReasonPhrase());
             }
-        }catch (NullPointerException ex) {
+        } catch (NullPointerException e) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
-            response.setMessage(HttpStatus.NOT_FOUND.getReasonPhrase());
-        }catch (Exception ex) {
+            response.setMessage("Place with ID: " + id + " not found");
+        } catch (DataAccessException e) {
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Database error: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("Invalid argument: " + e.getMessage());
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
         }
         return logApiResponse(response);
     }
@@ -69,16 +97,29 @@ public class StPlacesController extends ApiController {
     public ApiResponse<Optional<StPlacesEntity>> createPlaces(@RequestBody StPlacesEntity stPlacesEntity) {
         ApiResponse<Optional<StPlacesEntity>> response = new ApiResponse<>();
         try {
+            if(stPlacesEntity.getPlaceName() == null || stPlacesEntity.getPlaceName().isEmpty()){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Place name is required");
+                return logApiResponse(response);
+            }
+            if(stPlacesEntity.getCity() == null){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("City is required");
+                return logApiResponse(response);
+            }
             Optional<StPlacesEntity> savedPlaces = stPlacesService.createPlaces(stPlacesEntity);
             response.setData(savedPlaces);
             response.setStatus(HttpStatus.OK.value());
             response.setMessage(HttpStatus.OK.getReasonPhrase());
         } catch (ConstraintViolationException e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("Validation error: " + e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            response.setStatus(HttpStatus.CONFLICT.value());
+            response.setMessage("Data integrity error: " + e.getMessage());
         } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
         }
         return logApiResponse(response);
     }

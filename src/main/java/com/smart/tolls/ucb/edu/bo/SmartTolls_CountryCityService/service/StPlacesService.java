@@ -2,6 +2,7 @@ package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.service;
 
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StPlacesEntity;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.repository.StPlacesRepository;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,4 +45,13 @@ public class StPlacesService {
         return Optional.of(stPlacesRepository.save(places));
     }
 
+    public boolean isServiceAvailable() {
+        try {
+            stPlacesRepository.count();
+            return true;
+        } catch (Exception e) {
+            LoggerFactory.getLogger(StCityService.class).error("Database is not available", e);
+            return false;
+        }
+    }
 }
