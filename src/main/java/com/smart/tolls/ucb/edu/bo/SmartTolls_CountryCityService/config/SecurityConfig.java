@@ -1,5 +1,6 @@
 package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.config;
 
+import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Auth.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,14 +11,23 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final JwtAuthFilter jwtAuthFilter;
+
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
+        this.jwtAuthFilter = jwtAuthFilter;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests
-                                .anyRequest().permitAll() // Permitir acceso a todas las solicitudes
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/city/**", "/api/country/**").authenticated() // SOLO ESTOS ENDPOINTS REQUIEREN AUTENTICACIÓN
+                        .anyRequest().permitAll() // TODOS LOS DEMÁS ENDPOINTS ESTÁN PERMITIDOS
                 )
-                .csrf(AbstractHttpConfigurer::disable); // Deshabilitar CSRF si estás haciendo pruebas
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 }
