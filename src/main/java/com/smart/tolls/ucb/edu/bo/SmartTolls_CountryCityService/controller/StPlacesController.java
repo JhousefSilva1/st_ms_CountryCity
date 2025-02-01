@@ -1,7 +1,10 @@
 package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.controller;
 
+import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StCityEntity;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.entity.StPlacesEntity;
+import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.models.request.StPlacesRequest;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.models.response.ApiResponse;
+import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.service.StCityService;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.service.StPlacesService;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,9 @@ import java.util.Optional;
 public class StPlacesController extends ApiController {
     @Autowired
     private StPlacesService stPlacesService;
+
+    @Autowired
+    private StCityService stCityService;
 
     //getAllPlaces
     @GetMapping("/all")
@@ -94,23 +100,32 @@ public class StPlacesController extends ApiController {
     }
 
     @PostMapping
-    public ApiResponse<Optional<StPlacesEntity>> createPlaces(@RequestBody StPlacesEntity stPlacesEntity) {
+    public ApiResponse<Optional<StPlacesEntity>> createPlaces(@RequestBody StPlacesRequest stPlacesRequest) {
         ApiResponse<Optional<StPlacesEntity>> response = new ApiResponse<>();
         try {
-            if(stPlacesEntity.getPlaceName() == null || stPlacesEntity.getPlaceName().isEmpty()){
+            if(stPlacesRequest.getPlaceName() == null || stPlacesRequest.getPlaceName().isEmpty()){
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 response.setMessage("Place name is required");
                 return logApiResponse(response);
             }
-            if(stPlacesEntity.getCity() == null){
+            if(stPlacesRequest.getIdCity() == null){
                 response.setStatus(HttpStatus.BAD_REQUEST.value());
                 response.setMessage("City is required");
                 return logApiResponse(response);
             }
-            Optional<StPlacesEntity> savedPlaces = stPlacesService.createPlaces(stPlacesEntity);
-            response.setData(savedPlaces);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage(HttpStatus.OK.getReasonPhrase());
+            Optional<StCityEntity> city = stCityService.getCityById(stPlacesRequest.getIdCity());
+            if(city.isPresent()){
+                StPlacesEntity placesEntity = new StPlacesEntity();
+                placesEntity.setPlaceName(stPlacesRequest.getPlaceName());
+                placesEntity.setCity(city.get());
+                Optional<StPlacesEntity> savedPlaces = stPlacesService.createPlaces(placesEntity);
+                response.setData(savedPlaces);
+                response.setStatus(HttpStatus.OK.value());
+                response.setMessage(HttpStatus.OK.getReasonPhrase());
+            } else {
+              response.setStatus(HttpStatus.NOT_FOUND.value());
+              response.setMessage("Place with ID: " + stPlacesRequest.getIdCity() + " not found");
+            }
         } catch (ConstraintViolationException e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             response.setMessage("Validation error: " + e.getMessage());
@@ -125,13 +140,34 @@ public class StPlacesController extends ApiController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<Optional<StPlacesEntity>> updatePlaces(@PathVariable Long id, @RequestBody StPlacesEntity stPlacesEntity) {
+    public ApiResponse<Optional<StPlacesEntity>> updatePlaces(@PathVariable Long id, @RequestBody StPlacesRequest stPlacesRequest) {
         ApiResponse<Optional<StPlacesEntity>> response = new ApiResponse<>();
         try {
-            Optional<StPlacesEntity> updatedPlaces = stPlacesService.updatePlaces(id, stPlacesEntity);
-            response.setData(updatedPlaces);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage(HttpStatus.OK.getReasonPhrase());
+            if(id == null || id <= 0){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Invalid id");
+                return logApiResponse(response);
+            }
+            if(stPlacesRequest.getPlaceName() == null || stPlacesRequest.getPlaceName().isEmpty()){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Place name is required");
+                return logApiResponse(response);
+            }
+            if(stPlacesRequest.getIdCity() == null){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("City is required");
+                return logApiResponse(response);
+            }
+            Optional<StCityEntity> city = stCityService.getCityById(stPlacesRequest.getIdCity());
+            if(city.isPresent()){
+                StPlacesEntity placesEntity = new StPlacesEntity();
+                placesEntity.setPlaceName(stPlacesRequest.getPlaceName());
+                placesEntity.setCity(city.get());
+                Optional<StPlacesEntity> updatedPlaces = stPlacesService.updatePlaces(id, placesEntity);
+                response.setData(updatedPlaces);
+                response.setStatus(HttpStatus.OK.value());
+                response.setMessage(HttpStatus.OK.getReasonPhrase());
+            }
         } catch (ConstraintViolationException e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());

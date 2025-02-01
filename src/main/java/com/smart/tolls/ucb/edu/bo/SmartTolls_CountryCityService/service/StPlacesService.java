@@ -35,8 +35,9 @@ public class StPlacesService {
         return Optional.of(stPlacesRepository.save(stPlacesEntity));
     }
     public Optional<StPlacesEntity> updatePlaces(Long id, StPlacesEntity placesDetails){
-        StPlacesEntity places = stPlacesRepository.findById(id).orElseThrow(() -> new RuntimeException("Place not found"));
+        StPlacesEntity places = stPlacesRepository.findByIdAndByStatus(id, 1L);
         places.setPlaceName(placesDetails.getPlaceName());
+        places.setCity(placesDetails.getCity());
         return Optional.of(stPlacesRepository.save(places));
     }
     public Optional<StPlacesEntity> deletePlaces(Long id){
