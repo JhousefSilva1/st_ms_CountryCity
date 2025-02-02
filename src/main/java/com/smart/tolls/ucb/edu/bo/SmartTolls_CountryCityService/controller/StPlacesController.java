@@ -167,13 +167,19 @@ public class StPlacesController extends ApiController {
                 response.setData(updatedPlaces);
                 response.setStatus(HttpStatus.OK.value());
                 response.setMessage(HttpStatus.OK.getReasonPhrase());
+            } else {
+                response.setStatus(HttpStatus.NOT_FOUND.value());
+                response.setMessage("Place with ID: " + stPlacesRequest.getIdCity() + " not found");
             }
         } catch (ConstraintViolationException e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("Validation error: " + e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            response.setStatus(HttpStatus.CONFLICT.value());
+            response.setMessage("Data integrity error: " + e.getMessage());
         } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
         }
         return logApiResponse(response);
     }
@@ -188,7 +194,7 @@ public class StPlacesController extends ApiController {
             response.setMessage(HttpStatus.OK.getReasonPhrase());
         } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
         }
         return logApiResponse(response);
     }

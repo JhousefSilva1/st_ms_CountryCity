@@ -9,6 +9,7 @@ import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.service.StTollsS
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -136,16 +137,46 @@ public class StTollsController extends ApiController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<Optional<StTollsEntity>> updateToll(@PathVariable("id") Long id, @RequestBody StTollsEntity stTollsEntity){
+    public ApiResponse<Optional<StTollsEntity>> updateToll(@PathVariable("id") Long id, @RequestBody StTollsRequest stTollsRequest){
         ApiResponse<Optional<StTollsEntity>> response = new ApiResponse<>();
         try {
-            Optional<StTollsEntity> toll = stTollsService.updateTolls(id, stTollsEntity);
-            response.setData(toll);
-            response.setStatus(HttpStatus.OK.value());
-            response.setMessage(HttpStatus.OK.getReasonPhrase());
+            if(id == null || id <= 0){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Invalid id");
+                return logApiResponse(response);
+            }
+            if(stTollsRequest.getTollsName() == null || stTollsRequest.getTollsName().isEmpty()){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Tolls name is required");
+                return logApiResponse(response);
+            }
+            if (stTollsRequest.getIdPlaces() == null){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Id places is required");
+                return logApiResponse(response);
+            }
+            Optional<StPlacesEntity> places = stPlacesService.getPlaceById(stTollsRequest.getIdPlaces());
+            if (places.isPresent()){
+                StTollsEntity tollEntity = new StTollsEntity();
+                tollEntity.setTollsName(stTollsRequest.getTollsName());
+                tollEntity.setPlaces(places.get());
+                Optional<StTollsEntity> toll = stTollsService.updateTolls(id, tollEntity);
+                response.setData(toll);
+                response.setStatus(HttpStatus.OK.value());
+                response.setMessage(HttpStatus.OK.getReasonPhrase());
+            } else {
+                response.setStatus(HttpStatus.NOT_FOUND.value());
+                response.setMessage("Place with ID: " + id + " not found");
+            }
+        } catch (ConstraintViolationException e) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Validation error: " + e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            response.setStatus(HttpStatus.CONFLICT.value());
+            response.setMessage("Data integrity error: " + e.getMessage());
         } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
         }
         return logApiResponse(response);
     }
@@ -160,7 +191,7 @@ public class StTollsController extends ApiController {
             response.setMessage(HttpStatus.OK.getReasonPhrase());
         } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
         }
         return logApiResponse(response);
     }

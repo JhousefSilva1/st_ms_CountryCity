@@ -202,7 +202,7 @@ public class StCityController extends ApiController{
             response.setMessage(HttpStatus.OK.getReasonPhrase());
         } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
         }
         return logApiResponse(response);
     }
