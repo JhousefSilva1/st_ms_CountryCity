@@ -14,23 +14,21 @@ public class StTollsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "st_tolls_id")
     private Long idTolls;
 
     private String tollsName;
 
     @ManyToOne
-    @JoinColumn(name = "st_places_st_places_id", nullable = false)
+    @JoinColumn(name = "st_places_places_id", nullable = false)
     private StPlacesEntity places;
 
-    @Column(name = "st_tolls_status")
-    private Integer status;
+    private Integer tollsStatus;
 
     @Embedded
     private Audit audit = new Audit();
 
     @PrePersist
     public void prePersist() {
-        this.status = 1;
+        this.tollsStatus = 1;
     }
 }

@@ -44,6 +44,12 @@ spring:
       enabled: false
       import-check:
         enabled: false
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
 logging:
   level:
     org.springframework.cloud.gateway: debug

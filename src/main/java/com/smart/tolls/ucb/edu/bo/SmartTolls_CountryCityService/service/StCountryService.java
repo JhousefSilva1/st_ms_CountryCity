@@ -40,7 +40,7 @@ public class StCountryService {
 
     public Optional<StCountryEntity> deleteCountry(Long id) {
         StCountryEntity country = stCountryRepository.findById(id).orElseThrow(() -> new RuntimeException("Country not found"));
-        country.setStatus(0);
+        country.setCountryStatus(0);
         return Optional.of(stCountryRepository.save(country));
     }
 

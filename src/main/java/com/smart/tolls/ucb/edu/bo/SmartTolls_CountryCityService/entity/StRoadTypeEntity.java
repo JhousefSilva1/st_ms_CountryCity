@@ -14,19 +14,17 @@ public class StRoadTypeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "st_road_type_id")
     private Long idRoadType;
 
     private String roadType;
 
-    @Column(name = "st_road_type_status")
-    private Integer status;
+    private Integer roadTypeStatus;
 
     @Embedded
     private Audit audit = new Audit();
 
     @PrePersist
     public void prePersist() {
-        this.status = 1;
+        this.roadTypeStatus = 1;
     }
 }

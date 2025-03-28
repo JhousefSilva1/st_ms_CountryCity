@@ -17,21 +17,18 @@ public class StCountryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "st_country_id")
     private Long idCountry;
 
-    @Column(name = "st_country_name")
     private String countryName;
 
-    @Column(name = "st_country_status")
-    private Integer status;
+    private Integer countryStatus;
 
     @Embedded
     private Audit audit = new Audit();
 
     @PrePersist
     public void prePersist() {
-        this.status = 1;
+        this.countryStatus = 1;
     }
 
     @JsonIgnore

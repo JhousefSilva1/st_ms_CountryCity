@@ -39,7 +39,7 @@ public class StCityService {
 
     public Optional<StCityEntity> deleteCity(Long id){
         StCityEntity city = stCityRepository.findByIdAndByStatus(id, 1L);
-        city.setStatus(0);
+        city.setCityStatus(0);
         return Optional.of(stCityRepository.save(city));
     }
 

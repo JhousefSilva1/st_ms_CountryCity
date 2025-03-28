@@ -16,21 +16,21 @@ import java.util.List;
 public class StCityEntity {
     @Id
     @GeneratedValue
-    @Column(name = "st_city_id")
+
+
     private Long idCity;
 
-    @Column(name = "st_city_name")
     private String cityName;
 
-    @Column(name = "st_city_status")
-    private Integer status;
+    private Integer cityStatus;
 
     @ManyToOne
-    @JoinColumn(name = "st_country_st_country_id", nullable = false)
+    @JoinColumn(name = "st_country_country_id", nullable = false)
     private StCountryEntity country;
 
     @JsonIgnore
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
+
     private List<StPlacesEntity> places;
 
     @Embedded
@@ -38,6 +38,6 @@ public class StCityEntity {
 
     @PrePersist
     public void prePersist() {
-        this.status = 1;
+        this.cityStatus = 1;
     }
 }

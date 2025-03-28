@@ -42,7 +42,7 @@ public class StPlacesService {
     }
     public Optional<StPlacesEntity> deletePlaces(Long id){
         StPlacesEntity places = stPlacesRepository.findById(id).orElseThrow(()-> new RuntimeException("Place not found"));
-        places.setStatus(0);
+        places.setPlacesStatus(0);
         return Optional.of(stPlacesRepository.save(places));
     }
 

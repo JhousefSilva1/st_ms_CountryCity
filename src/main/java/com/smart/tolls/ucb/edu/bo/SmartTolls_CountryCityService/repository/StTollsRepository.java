@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface StTollsRepository extends JpaRepository<StTollsEntity, Long> {
-    @Query("select b from StTollsEntity b where b.status = 1 order by b.idTolls asc")
+    @Query("select b from StTollsEntity b where b.tollsStatus = 1 order by b.idTolls asc")
     List<StTollsEntity> findAllByStatus();
 
-    @Query("select b from StTollsEntity b where b.idTolls=?1 and b.status=?2")
+    @Query("select b from StTollsEntity b where b.idTolls=?1 and b.tollsStatus=?2")
     StTollsEntity findByIdAndByStatus(Long id, long status);
 }

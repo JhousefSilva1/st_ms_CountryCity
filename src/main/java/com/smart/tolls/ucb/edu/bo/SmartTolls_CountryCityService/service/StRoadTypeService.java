@@ -38,7 +38,7 @@ public class StRoadTypeService {
 
     public Optional<StRoadTypeEntity> deleteRoadType(Long id) {
         StRoadTypeEntity roadType = stRoadTypeRepository.findByIdAndByStatus(id, 1L);
-        roadType.setStatus(0);
+        roadType.setRoadTypeStatus(0);
         return Optional.of(stRoadTypeRepository.save(roadType));
     }
 

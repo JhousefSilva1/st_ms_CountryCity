@@ -38,7 +38,7 @@ public class StTollsService {
 
     public Optional<StTollsEntity> deleteTolls(Long id){
         StTollsEntity tolls = stTollsRepository.findByIdAndByStatus(id, 1L);
-        tolls.setStatus(0);
+        tolls.setTollsStatus(0);
         return Optional.of(stTollsRepository.save(tolls));
     }
 

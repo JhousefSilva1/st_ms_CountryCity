@@ -22,10 +22,10 @@ public class StPlacesEntity {
 
     private String placeName;
 
-    private Integer status;
+    private Integer placesStatus;
 
     @ManyToOne
-    @JoinColumn(name = "st_city_st_city_id", nullable = false)
+    @JoinColumn(name = "st_city_city_id", nullable = false)
     private StCityEntity city;
 
     @JsonIgnore
@@ -37,6 +37,6 @@ public class StPlacesEntity {
 
     @PrePersist
     public void prePersist() {
-        this.status = 1;
+        this.placesStatus = 1;
     }
 }
