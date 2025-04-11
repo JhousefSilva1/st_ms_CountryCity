@@ -106,7 +106,7 @@ public class StCityController extends ApiController{
         return logApiResponse(response);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ApiResponse<Optional<StCityEntity>> createCity(@RequestBody StCityRequest stCityEntity){
         ApiResponse<Optional<StCityEntity>> response = new ApiResponse<>();
         try {
@@ -146,7 +146,7 @@ public class StCityController extends ApiController{
         return logApiResponse(response);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ApiResponse<Optional<StCityEntity>> updateCity(@PathVariable Long id, @RequestBody StCityRequest stCityEntity){
         ApiResponse<Optional<StCityEntity>> response = new ApiResponse<>();
         try {

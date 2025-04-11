@@ -48,9 +48,41 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/country/all").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/country/create").hasAuthority("ROLE_ADMINISTRADOR")
-                        .requestMatchers("/api/country/**").authenticated()
+//                        for country
+                                .requestMatchers(HttpMethod.GET,"/api/country/all").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/country").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/country/{id}").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/country/create").hasAuthority("ADMINISTRADOR")
+                                .requestMatchers(HttpMethod.PUT, "/api/country/update").hasAuthority("ADMINISTRADOR")
+                                .requestMatchers(HttpMethod.DELETE, "/api/country/delete").hasAuthority("ADMINISTRADOR")
+//                        for city
+                                .requestMatchers(HttpMethod.GET,"/api/city/all").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/city").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/city/{id}").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/city/create").hasRole("ADMINISTRADOR")
+                                .requestMatchers(HttpMethod.PUT,"/api/city/update").hasRole("ADMINISTRADOR")
+                                .requestMatchers(HttpMethod.DELETE,"/api/city/delete").hasRole("ADMINISTRADOR")
+//                        for places
+                                .requestMatchers(HttpMethod.GET,"/api/places/all").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/places").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/places/{id}").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/places/create").hasRole("ADMINISTRADOR")
+                                .requestMatchers(HttpMethod.PUT,"/api/places/update").hasRole("ADMINISTRADOR")
+                                .requestMatchers(HttpMethod.DELETE,"/api/places/delete").hasRole("ADMINISTRADOR")
+//                        for road type
+                                .requestMatchers(HttpMethod.GET,"/api/roadType/all").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/roadType").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/roadType/{id}").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/roadType/create").hasRole("ADMINISTRADOR")
+                                .requestMatchers(HttpMethod.PUT,"/api/roadType/update").hasRole("ADMINISTRADOR")
+                                .requestMatchers(HttpMethod.DELETE,"/api/roadType/delete").hasRole("ADMINISTRADOR")
+//                        for tolls
+                                .requestMatchers(HttpMethod.GET,"/api/toll/all").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/toll").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/toll/{id}").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/toll/create").hasRole("ADMINISTRADOR")
+                                .requestMatchers(HttpMethod.PUT,"/api/toll/update").hasRole("ADMINISTRADOR")
+                                .requestMatchers(HttpMethod.DELETE,"/api/toll/delete").hasRole("ADMINISTRADOR")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
