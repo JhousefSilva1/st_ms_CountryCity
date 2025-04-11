@@ -3,6 +3,7 @@ package com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Auth.Config;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Auth.JwtAuthEntryPoint;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Auth.JwtAuthenticationFilter;
 import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Auth.Service.JwtService;
+import com.smart.tolls.ucb.edu.bo.SmartTolls_CountryCityService.Auth.Service.UserDetailsServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final JwtAuthEntryPoint authEntryPoint;
@@ -40,22 +43,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
-                        httpSecurityExceptionHandlingConfigurer
-                                .authenticationEntryPoint((request, response, authException) -> {
-                                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-                                })
-                )
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(authEntryPoint))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/country/all").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/country/create").hasAuthority("ROLE_ADMINISTRADOR")
                         .requestMatchers("/api/country/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/country/create").hasRole("ADMINISTRADOR")
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -63,7 +60,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(jwtService, userDetailsService);
+        return new JwtAuthenticationFilter(jwtService, (UserDetailsServiceImpl) userDetailsService);
     }
 
     @Bean
