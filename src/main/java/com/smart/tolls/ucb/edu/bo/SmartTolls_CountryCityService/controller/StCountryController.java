@@ -98,7 +98,7 @@ public class StCountryController extends ApiController {
         return logApiResponse(response);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ApiResponse<Optional<StCountryEntity>> createCountry(@RequestBody StCountryEntity stCountryEntity){
         ApiResponse<Optional<StCountryEntity>> response = new ApiResponse<>();
         try {
