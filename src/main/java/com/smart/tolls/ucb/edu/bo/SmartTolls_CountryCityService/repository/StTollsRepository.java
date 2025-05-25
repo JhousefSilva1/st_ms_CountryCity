@@ -13,4 +13,7 @@ public interface StTollsRepository extends JpaRepository<StTollsEntity, Long> {
 
     @Query("select b from StTollsEntity b where b.idTolls=?1 and b.tollsStatus=?2")
     StTollsEntity findByIdAndByStatus(Long id, long status);
+
+    @Query("select b from StTollsEntity b where b.places.idPlaces=?1 and b.tollsStatus=1")
+    List<StTollsEntity>findTollsByPlaceId(Long id);
 }

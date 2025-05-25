@@ -98,8 +98,37 @@ public class StTollsController extends ApiController {
         }
         return logApiResponse(response);
     }
+//    get tolls by placeId
+    @GetMapping("/place/{id}")
+    public ApiResponse<List<StTollsEntity>> getTollsByPlaceId(@PathVariable("id") Long id){
+        ApiResponse<List<StTollsEntity>> response = new ApiResponse<>();
+        try {
+            if(id == null || id <= 0){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Invalid id");
+                return logApiResponse(response);
+            }
+            List<StTollsEntity> tolls = stTollsService.getTollsByPlaceId(id);
+            response.setData(tolls);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage(HttpStatus.OK.getReasonPhrase());
+        } catch (NullPointerException e) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage("Place with ID: " + id + " not found");
+        } catch (DataAccessException e) {
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Database error: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("Invalid argument: " + e.getMessage());
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
+        }
+        return logApiResponse(response);
+    }
 
-    @PostMapping
+    @PostMapping("/create")
     public ApiResponse<Optional<StTollsEntity>> createToll(@RequestBody StTollsRequest stTollsRequest){
         ApiResponse<Optional<StTollsEntity>> response = new ApiResponse<>();
         try {

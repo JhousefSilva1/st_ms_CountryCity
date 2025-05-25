@@ -106,6 +106,24 @@ public class StCityController extends ApiController{
         return logApiResponse(response);
     }
 
+    @GetMapping("/country/{id}")
+    public ApiResponse<List<StCityEntity>>getCitiesByCountryById(@PathVariable Long id){
+        ApiResponse<List<StCityEntity>> response = new ApiResponse<>();
+        try{
+            List<StCityEntity> city = stCityService.getCitiesByCountryId(id);
+            response.setData(city);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage(HttpStatus.OK.getReasonPhrase());
+        }catch (NullPointerException e){
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            response.setMessage(HttpStatus.NOT_FOUND.getReasonPhrase());
+        }catch (Exception e){
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setMessage(HttpStatus.BAD_REQUEST.getReasonPhrase());
+        }
+        return logApiResponse(response);
+    }
+
     @PostMapping("/create")
     public ApiResponse<Optional<StCityEntity>> createCity(@RequestBody StCityRequest stCityEntity){
         ApiResponse<Optional<StCityEntity>> response = new ApiResponse<>();

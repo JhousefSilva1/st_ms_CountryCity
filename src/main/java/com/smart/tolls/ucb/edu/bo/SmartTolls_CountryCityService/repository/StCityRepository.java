@@ -12,4 +12,12 @@ public interface StCityRepository extends JpaRepository<StCityEntity, Long> {
 
     @Query("select b from StCityEntity b where b.idCity=?1 and b.cityStatus=?2")
     StCityEntity findByIdAndByStatus(Long id, long status);
+
+    @Query("select b from StCityEntity b where b.country.idCountry=?1 and b.cityStatus=1" )
+    List<StCityEntity> findByCountryAndByStatus(Long id);
+
+
+//    query get CountryId by cituId
+    @Query("select  b from StCityEntity b where b.idCity=?1")
+    StCityEntity findByIdCity(Long id);
 }

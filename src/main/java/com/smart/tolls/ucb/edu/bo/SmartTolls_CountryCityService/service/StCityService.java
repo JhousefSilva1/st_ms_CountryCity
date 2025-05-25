@@ -25,6 +25,14 @@ public class StCityService {
     public Optional<StCityEntity> getCityById(Long id){
         return Optional.of(stCityRepository.findByIdAndByStatus(id, 1L));
     }
+//    get city by country id
+    public List<StCityEntity> getCitiesByCountryId(Long id){
+        return stCityRepository.findByCountryAndByStatus(id);
+    }
+//    get country by city id
+    public Optional<StCityEntity> getCountryIdByCityId(Long id){
+        return Optional.of(stCityRepository.findByIdCity(id));
+    }
 
     public Optional<StCityEntity> createCity(StCityEntity stCityEntity){
         return Optional.of(stCityRepository.save(stCityEntity));

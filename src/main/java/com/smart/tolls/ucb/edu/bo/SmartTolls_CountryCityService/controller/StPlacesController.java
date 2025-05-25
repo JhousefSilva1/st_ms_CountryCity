@@ -47,7 +47,26 @@ public class StPlacesController extends ApiController {
         }
         return logApiResponse(response);
     }
-
+//    get places by cityId
+    @GetMapping("/city/{idCity}")
+    public ApiResponse<List<StPlacesEntity>> getPlacesByCityId(@PathVariable Long idCity) {
+        ApiResponse<List<StPlacesEntity>> response = new ApiResponse<>();
+        try {
+            if(idCity == null || idCity <= 0){
+                response.setStatus(HttpStatus.BAD_REQUEST.value());
+                response.setMessage("Invalid city ID");
+                return logApiResponse(response);
+            }
+            List<StPlacesEntity> placesEntities = stPlacesService.getPlacesByCityId(idCity);
+            response.setData(placesEntities);
+            response.setStatus(HttpStatus.OK.value());
+            response.setMessage(HttpStatus.OK.getReasonPhrase());
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("An unexpected error occurred: " + e.getMessage());
+        }
+        return logApiResponse(response);
+    }
     //getAllPlacesByStatus
     @GetMapping
     public ApiResponse<List<StPlacesEntity>> getAllPlacesByStatus() {
@@ -99,7 +118,7 @@ public class StPlacesController extends ApiController {
         return logApiResponse(response);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ApiResponse<Optional<StPlacesEntity>> createPlaces(@RequestBody StPlacesRequest stPlacesRequest) {
         ApiResponse<Optional<StPlacesEntity>> response = new ApiResponse<>();
         try {

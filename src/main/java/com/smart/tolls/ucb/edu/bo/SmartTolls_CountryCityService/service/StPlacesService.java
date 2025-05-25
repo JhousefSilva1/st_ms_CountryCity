@@ -24,6 +24,10 @@ public class StPlacesService {
     public Optional<StPlacesEntity> getPlaceById(Long id){
         return Optional.of(stPlacesRepository.findByIdAndByStatus(id, 1L));
     }
+//    getPlacesByCityId
+    public List<StPlacesEntity> getPlacesByCityId(Long id){
+        return stPlacesRepository.findPlacesByCityId(id);
+    }
 
     //getAllPlacesByStatus
     public List<StPlacesEntity>getAllPlacesByStatus(){

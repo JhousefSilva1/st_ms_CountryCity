@@ -26,6 +26,11 @@ public class StTollsService {
         return Optional.of(stTollsRepository.findByIdAndByStatus(id, 1L));
     }
 
+//    get Tolls by CityId
+    public List<StTollsEntity>getTollsByPlaceId(Long id){
+        return stTollsRepository.findTollsByPlaceId(id);
+    }
+
     public Optional<StTollsEntity> createTolls(StTollsEntity stTollsEntity){
         return Optional.of(stTollsRepository.save(stTollsEntity));
     }

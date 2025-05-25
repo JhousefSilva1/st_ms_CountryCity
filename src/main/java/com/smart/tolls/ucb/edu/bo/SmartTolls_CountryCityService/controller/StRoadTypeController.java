@@ -93,7 +93,7 @@ public class StRoadTypeController extends ApiController {
         return logApiResponse(response);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ApiResponse<Optional<StRoadTypeEntity>> createRoadType(@RequestBody StRoadTypeEntity roadType) {
         ApiResponse<Optional<StRoadTypeEntity>> response = new ApiResponse<>();
         try {
