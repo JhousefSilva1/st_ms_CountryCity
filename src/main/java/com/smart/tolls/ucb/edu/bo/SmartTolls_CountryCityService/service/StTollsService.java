@@ -14,6 +14,13 @@ public class StTollsService {
     @Autowired
     private StTollsRepository stTollsRepository;
 
+    public boolean validateToll(Long tollId) {
+        if (tollId == null || tollId <= 0) {
+            return false;
+        }
+        return stTollsRepository.existsById(tollId);
+    }
+
     public List<StTollsEntity> getAllTolls(){
         return stTollsRepository.findAll();
     }

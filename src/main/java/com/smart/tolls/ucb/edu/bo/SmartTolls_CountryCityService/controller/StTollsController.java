@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,15 @@ public class StTollsController extends ApiController {
 
     @Autowired
     private StPlacesService stPlacesService;
+    @GetMapping("/{tollId}/validate")
+    public ResponseEntity<Boolean> validateToll(@PathVariable Long tollId) {
+        try {
+            boolean isValid = stTollsService.validateToll(tollId);
+            return ResponseEntity.ok(isValid);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+        }
+    }
 
     @GetMapping("/all")
     public ApiResponse<List<StTollsEntity>> getAllTolls(){

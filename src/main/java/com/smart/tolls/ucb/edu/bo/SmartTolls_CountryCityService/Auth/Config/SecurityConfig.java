@@ -89,7 +89,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST,"/api/toll/create").permitAll()
                                 .requestMatchers(HttpMethod.PUT,"/api/toll/update").hasRole("ADMINISTRADOR")
                                 .requestMatchers(HttpMethod.DELETE,"/api/toll/delete").hasRole("ADMINISTRADOR")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
