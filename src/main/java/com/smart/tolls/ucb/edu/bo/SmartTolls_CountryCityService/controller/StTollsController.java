@@ -175,7 +175,7 @@ public class StTollsController extends ApiController {
         return logApiResponse(response);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ApiResponse<Optional<StTollsEntity>> updateToll(@PathVariable("id") Long id, @RequestBody StTollsRequest stTollsRequest){
         ApiResponse<Optional<StTollsEntity>> response = new ApiResponse<>();
         try {
@@ -220,7 +220,7 @@ public class StTollsController extends ApiController {
         return logApiResponse(response);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ApiResponse<Optional<StTollsEntity>> deleteToll(@PathVariable("id") Long id){
         ApiResponse<Optional<StTollsEntity>> response = new ApiResponse<>();
         try {
