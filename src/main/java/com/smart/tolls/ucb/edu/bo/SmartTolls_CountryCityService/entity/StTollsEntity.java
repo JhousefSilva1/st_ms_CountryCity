@@ -7,7 +7,6 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "st_tolls")
 public class StTollsEntity {

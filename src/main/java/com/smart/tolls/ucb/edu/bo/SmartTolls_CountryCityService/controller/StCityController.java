@@ -210,7 +210,7 @@ public class StCityController extends ApiController{
         return logApiResponse(response);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ApiResponse<Optional<StCityEntity>> deleteCity(@PathVariable Long id){
         ApiResponse<Optional<StCityEntity>> response = new ApiResponse<>();
         try {

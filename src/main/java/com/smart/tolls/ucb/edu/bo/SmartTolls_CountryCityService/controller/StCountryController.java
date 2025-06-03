@@ -124,7 +124,7 @@ public class StCountryController extends ApiController {
         return logApiResponse(response);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ApiResponse<Optional<StCountryEntity>> updateCountry(@PathVariable Long id, @RequestBody StCountryEntity stCountryEntity){
         ApiResponse<Optional<StCountryEntity>> response = new ApiResponse<>();
         try {
@@ -155,7 +155,7 @@ public class StCountryController extends ApiController {
         return logApiResponse(response);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ApiResponse<Optional<StCountryEntity>> deleteCountry(@PathVariable Long id){
         ApiResponse<Optional<StCountryEntity>> response = new ApiResponse<>();
         try {

@@ -158,7 +158,7 @@ public class StPlacesController extends ApiController {
         return logApiResponse(response);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ApiResponse<Optional<StPlacesEntity>> updatePlaces(@PathVariable Long id, @RequestBody StPlacesRequest stPlacesRequest) {
         ApiResponse<Optional<StPlacesEntity>> response = new ApiResponse<>();
         try {
@@ -203,7 +203,7 @@ public class StPlacesController extends ApiController {
         return logApiResponse(response);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ApiResponse<Optional<StPlacesEntity>> deletePlaces(@PathVariable Long id) {
         ApiResponse<Optional<StPlacesEntity>> response = new ApiResponse<>();
         try {
