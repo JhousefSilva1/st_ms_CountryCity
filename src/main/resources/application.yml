@@ -22,9 +22,9 @@ spring:
   datasource:
 #    this is for the local datrabase
 
-    url: jdbc:postgresql://localhost:5432/MsCountries
-    username: admin
-    password: 12345
+#    url: jdbc:postgresql://localhost:5432/MsCountries
+#    username: admin
+#    password: 12345
 
 #   settings for AWS RDS PostgreSQL
 
@@ -32,7 +32,15 @@ spring:
 #    username: postgres
 #    password: 12345678A
 
-    driver-class-name: org.postgresql.Driver
+#    driver-class-name: org.postgresql.Driver
+
+#       settings for AWS RDS PostgreSQL
+
+        url: jdbc:postgresql://mscountries.czk8i6icy1zy.us-east-2.rds.amazonaws.com:5432/MsCountries
+        username: postgres
+        password: abc12345678ABC
+
+        driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
